@@ -2,32 +2,54 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { FaBars } from "react-icons/fa";
+import logo from "@/assets/logo.png";
+import logo2 from "@/assets/logo2.jpg";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
+  };
+
+  const handleLogout = () => {
+    console.log("logout done");
   };
 
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex items-center justify-between">
         {/* Left side - Logo */}
+        <img src={logo2} className="h-20" alt="" />
         <div>
-          <Link href="/" className="text-white font-bold text-xl">
-            Job Portal
+          <Link
+            href="/"
+            className="text-white font-bold text-xl hover:text-gray-300"
+          >
+            Replica
           </Link>
         </div>
 
         {/* Middle - Categories */}
         <div className="hidden md:flex space-x-4">
           {/* Add your categories links here */}
-          <Link href="/category1" className="text-white">
+          <Link
+            href="/category1"
+            className="text-white text-sm hover:text-gray-300"
+          >
             Category 1
           </Link>
-          <Link href="/category2" className="text-white">
+          <Link
+            href="/category2"
+            className="text-white text-sm hover:text-gray-300"
+          >
             Category 2
           </Link>
         </div>
@@ -56,13 +78,13 @@ const Navbar = () => {
                   <div className="absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg">
                     {/* Add dropdown menu items here */}
                     <Link href="/profile">
-                      <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer">
+                      <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm">
                         Profile
                       </span>
                     </Link>
                     <button
                       onClick={handleLogout}
-                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer"
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm"
                     >
                       Logout
                     </button>
@@ -73,7 +95,9 @@ const Navbar = () => {
           ) : (
             // If the user is not logged in, show the login button
             <Link href="/login">
-              <span className="text-white cursor-pointer">Login</span>
+              <span className="text-white cursor-pointer hidden md:block text-sm">
+                Login
+              </span>
             </Link>
           )}
         </div>
@@ -85,34 +109,41 @@ const Navbar = () => {
           className="text-white font-bold text-xl focus:outline-none"
         >
           <svg
-            className="w-6 h-6 fill-current"
+            className={`w-6 h-6 fill-current ${
+              isMenuOpen ? "hidden" : "block"
+            }`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
-            {isMenuOpen ? (
-              <path d="M19 15H5v-2h14v2zM19 9H5V7h14v2z" />
-            ) : (
-              <path d="M4 8h16v2H4zm0 5h16v2H4z" />
-            )}
+            <path d="M4 8h16v2H4zm0 5h16v2H4z" />
+          </svg>
+          <svg
+            className={`w-6 h-6 fill-current ${
+              isMenuOpen ? "block" : "hidden"
+            }`}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <path d="M6.83 4L12 9.17L17.17 4L19 5.83L13.83 11L19 16.17L17.17 18L12 12.83L6.83 18L5 16.17L10.17 11L5 5.83L6.83 4Z" />
           </svg>
         </button>
         {isMenuOpen && (
           <div className="mt-2">
             {/* Add your responsive menu items here */}
             <Link href="/category1">
-              <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer">
+              <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                 Category 1
               </span>
             </Link>
             <Link href="/category2">
-              <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer">
+              <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                 Category 2
               </span>
             </Link>
             {/* Add the login button to the responsive menu */}
             {!isLoggedIn && (
               <Link href="/login">
-                <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer">
+                <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                   Login
                 </span>
               </Link>
@@ -121,13 +152,13 @@ const Navbar = () => {
             {isLoggedIn && (
               <>
                 <Link href="/profile">
-                  <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer">
+                  <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                     Profile
                   </span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="block w-full text-left py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
+                  className="block w-full text-left py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                 >
                   Logout
                 </button>
