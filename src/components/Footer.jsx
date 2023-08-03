@@ -15,7 +15,7 @@ const Footer = () => {
           {/* Footer Column 1 */}
           <div className="mb-8 md:mb-0">
             <Image src={logo} alt="logo" width={48} className="mb-1"></Image>
-            <p className="text-lg font-bold">Replica</p>
+            <p className="text-lg font-bold uppercase">Replica</p>
             <p className="text-sm text-gray-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
               rutrum lacinia lorem, non facilisis odio facilisis eget.
@@ -91,7 +91,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="mt-8 border-t border-gray-800 py-4 text-center text-sm">
         {/* Add some descriptive text or copyright information here */}
-        &copy; {new Date().getFullYear()} Replica. All rights reserved.
+        &copy; {new Date().getFullYear()} REPLICA. All rights reserved.
       </div>
     </footer>
   );

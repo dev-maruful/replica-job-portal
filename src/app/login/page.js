@@ -24,7 +24,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-5 md:mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-md md:mx-auto p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
       <Formik
         initialValues={initialValues}
@@ -70,7 +70,7 @@ const LoginForm = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-blue-600"
+              className="w-full bg-[#8c52ff] text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-[#7A51CB]"
             >
               {isSubmitting ? "Logging in..." : "Login"}
             </button>
@@ -81,7 +81,7 @@ const LoginForm = () => {
         <p>
           Don't have an account?{" "}
           <Link href="/register">
-            <span className="underline hover:text-blue-500 hover:cursor-pointer">
+            <span className="underline hover:text-[#8c52ff] hover:cursor-pointer">
               Sign Up
             </span>
           </Link>
