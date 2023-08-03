@@ -4,6 +4,8 @@ import {
   FaLinkedinIn,
   FaTwitter,
 } from "react-icons/fa";
+import logo from "@/assets/logo.png";
+import Image from "next/image";
 
 const Footer = () => {
   return (
@@ -12,11 +14,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-8">
           {/* Footer Column 1 */}
           <div className="mb-8 md:mb-0">
-            <img
-              src="/logo.png"
-              alt="Logo"
-              className="w-12 h-12 rounded-full mb-2"
-            />
+            <Image src={logo} alt="logo" width={48} className="mb-1"></Image>
             <p className="text-lg font-bold">Replica</p>
             <p className="text-sm text-gray-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin

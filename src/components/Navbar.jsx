@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import logo from "@/assets/logo.png";
-import logo2 from "@/assets/logo2.jpg";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,14 +27,16 @@ const Navbar = () => {
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex items-center justify-between">
         {/* Left side - Logo */}
-        <img src={logo2} className="h-20" alt="" />
-        <div>
-          <Link
-            href="/"
-            className="text-white font-bold text-xl hover:text-gray-300"
-          >
-            Replica
-          </Link>
+        <div className="flex items-center gap-3">
+          <Image src={logo} alt="logo" width={48}></Image>
+          <div>
+            <Link
+              href="/"
+              className="text-white font-bold text-3xl hover:text-gray-300 uppercase"
+            >
+              Replica
+            </Link>
+          </div>
         </div>
 
         {/* Middle - Categories */}
