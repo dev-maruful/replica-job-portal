@@ -9,7 +9,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -97,7 +97,7 @@ const Navbar = () => {
           ) : (
             // If the user is not logged in, show the login button
             <Link href="/login">
-              <span className="text-white cursor-pointer hidden md:block text-sm">
+              <span className="text-white cursor-pointer hidden md:block text-sm hover:text-gray-300">
                 Login
               </span>
             </Link>

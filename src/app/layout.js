@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <Navbar></Navbar>
-        {children}
+        <div className="min-h-[calc(100vh-404.667px)]">{children}</div>
         <Footer></Footer>
       </body>
     </html>
