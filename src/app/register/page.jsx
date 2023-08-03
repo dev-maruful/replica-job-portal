@@ -7,9 +7,12 @@ import { BsUpload } from "react-icons/bs";
 import Link from "next/link";
 import axios from "axios";
 import addUser from "@/utils/addUser";
+import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
 
   const initialValues = {
@@ -32,8 +35,6 @@ const RegisterForm = () => {
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     setTimeout(() => {
       setSubmitting(false);
-      resetForm();
-      setImagePreview("");
     }, 1000);
 
     console.log(values);
@@ -51,14 +52,19 @@ const RegisterForm = () => {
         values.image = res?.data?.data?.display_url;
 
         // add user to local storage
-        addUser(values);
+        const saveUser = addUser(values);
+        console.log(saveUser);
+        if (saveUser?.status === "success") {
+          resetForm();
+          setImagePreview("");
+          router.push("/");
+          toast.success(saveUser.message);
+        } else if (saveUser?.status === "failed") {
+          toast.error(saveUser.message);
+        }
       })
       .catch((err) => console.log(err));
   };
-
-  // const handleRoleChange = (event, setFieldValue) => {
-  //   setFieldValue("role", event.target.value);
-  // };
 
   const [imagePreview, setImagePreview] = useState("");
 

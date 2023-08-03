@@ -6,14 +6,15 @@ const addUser = (data) => {
   //   check the user is already existing
   const existingUser = users?.find((user) => user?.email === data.email);
   if (existingUser) {
-    return toast.error("User already exists");
+    return { message: "User already exists", status: "failed" };
   } else {
     users.push(data);
-    toast.success("User registered successfully");
-  }
+    // toast.success("User registered successfully");
 
-  //   save the updated user to the local storage
-  localStorage.setItem("users", JSON.stringify(users));
+    //   save the updated user to the local storage
+    localStorage.setItem("users", JSON.stringify(users));
+    return { message: "User registered successfully", status: "success" };
+  }
 };
 
 export default addUser;
