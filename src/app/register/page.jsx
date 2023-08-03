@@ -4,12 +4,19 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BsUpload } from "react-icons/bs";
+import Link from "next/link";
+import axios from "axios";
+import addUser from "@/utils/addUser";
+import { toast } from "react-hot-toast";
 
 const RegisterForm = () => {
+  const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
+
   const initialValues = {
     name: "",
     email: "",
     password: "",
+    role: "buyer", // Default role is set to "buyer"
     image: null,
   };
 
@@ -19,6 +26,7 @@ const RegisterForm = () => {
     password: Yup.string()
       .min(6, "Password must be at least 6 characters long")
       .required("Password is required"),
+    role: Yup.string().required("Role is required"),
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
@@ -29,7 +37,28 @@ const RegisterForm = () => {
     }, 1000);
 
     console.log(values);
+    console.log(values.image);
+
+    const formData = new FormData();
+    formData.append("image", values.image);
+
+    console.log(formData);
+
+    // host image to image hosting server
+    axios
+      .post(image_hosting_url, formData)
+      .then((res) => {
+        values.image = res?.data?.data?.display_url;
+
+        // add user to local storage
+        addUser(values);
+      })
+      .catch((err) => console.log(err));
   };
+
+  // const handleRoleChange = (event, setFieldValue) => {
+  //   setFieldValue("role", event.target.value);
+  // };
 
   const [imagePreview, setImagePreview] = useState("");
 
@@ -110,6 +139,35 @@ const RegisterForm = () => {
             </div>
 
             <div className="mb-4">
+              <label className="block mb-2">Who you are?</label>
+              <div className="flex items-center">
+                <label className="mr-4">
+                  <Field
+                    type="radio"
+                    name="role"
+                    value="buyer"
+                    className="mr-1"
+                  />
+                  Buyer
+                </label>
+                <label>
+                  <Field
+                    type="radio"
+                    name="role"
+                    value="seller"
+                    className="mr-1"
+                  />
+                  Seller
+                </label>
+              </div>
+              <ErrorMessage
+                name="role"
+                component="div"
+                className="text-red-500 text-sm"
+              />
+            </div>
+
+            <div className="mb-4">
               <label htmlFor="image" className="block mb-2">
                 Profile Image
               </label>
@@ -146,6 +204,16 @@ const RegisterForm = () => {
           </Form>
         )}
       </Formik>
+      <div className="mt-2 text-sm">
+        <p>
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="underline hover:text-[#8c52ff] hover:cursor-pointer">
+              Sign In
+            </span>
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

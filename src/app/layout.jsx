@@ -1,9 +1,14 @@
+"use client";
+
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
+const queryClient = new QueryClient();
 
 export const metadata = {
   title: "Home | Replica",
@@ -16,9 +21,12 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar></Navbar>
         <div className="min-h-[calc(100vh-404.667px)] my-10 mx-5">
-          {children}
+          <QueryClientProvider client={queryClient}>
+            {children}
+          </QueryClientProvider>
         </div>
         <Footer></Footer>
+        <Toaster />
       </body>
     </html>
   );
