@@ -2,20 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { FaBars } from "react-icons/fa";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
 import GetCurrentUser from "@/utils/getCurrentUser";
-import UserLogin from "@/utils/userLogin";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // const [currentUser, setCurrentUser] = useState({});
   const { data: currentUser, refetch } = GetCurrentUser();
-  // const { data } = UserLogin();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -27,32 +22,17 @@ const Navbar = () => {
 
   const handleLogout = () => {
     console.log("logout done");
+    localStorage.setItem("isLoggedIn", false);
+    localStorage.removeItem("currentUser");
+    refetch();
   };
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isLoggedIn");
     setIsLoggedIn(userLoggedIn);
-    refetch();
   }, [currentUser]);
 
-  console.log(isLoggedIn);
-
-  // const {} = useQuery({
-  //   queryKey: "currentUser",
-  //   queryFn: () => {
-  //     const data = localStorage.getItem("currentUser");
-  //     setUser(JSON.parse(data));
-  //   },
-  // });
-
-  // const {} = useQuery({
-  //   queryKey: "isLoggedIn",
-  //   queryFn: () => {
-  //     const loggedUser = localStorage.getItem("isLoggedIn");
-  //     setIsLoggedIn(loggedUser);
-  //     refetch();
-  //   },
-  // });
+  console.log(currentUser, isLoggedIn);
 
   return (
     <nav className="bg-gray-800 p-4">
@@ -90,7 +70,7 @@ const Navbar = () => {
         {/* Right side */}
         <div className="flex items-center space-x-4">
           {/* Check if user is logged in */}
-          {isLoggedIn ? (
+          {isLoggedIn && currentUser ? (
             <>
               {/* User's photo */}
               <div className="relative">
@@ -174,7 +154,7 @@ const Navbar = () => {
               </span>
             </Link>
             {/* Add the login button to the responsive menu */}
-            {!isLoggedIn && (
+            {!currentUser && (
               <Link href="/login">
                 <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                   Login
@@ -182,7 +162,7 @@ const Navbar = () => {
               </Link>
             )}
             {/* Add other responsive menu items */}
-            {isLoggedIn && (
+            {currentUser && (
               <>
                 <Link href="/profile">
                   <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">

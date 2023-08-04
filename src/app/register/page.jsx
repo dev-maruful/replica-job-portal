@@ -14,6 +14,7 @@ import GetCurrentUser from "@/utils/getCurrentUser";
 const RegisterForm = () => {
   const router = useRouter();
   const { refetch } = GetCurrentUser();
+  const [imagePreview, setImagePreview] = useState("");
 
   const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
 
@@ -67,8 +68,6 @@ const RegisterForm = () => {
       .catch((err) => console.log(err));
   };
 
-  const [imagePreview, setImagePreview] = useState("");
-
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
     setFieldValue("image", file);
@@ -102,7 +101,8 @@ const RegisterForm = () => {
                 type="text"
                 id="name"
                 name="name"
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-400"
+                placeholder="your name..."
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
               />
               <ErrorMessage
                 name="name"
@@ -119,7 +119,8 @@ const RegisterForm = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-400"
+                placeholder="your email address..."
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
               />
               <ErrorMessage
                 name="email"
@@ -136,7 +137,8 @@ const RegisterForm = () => {
                 type="password"
                 id="password"
                 name="password"
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-400"
+                placeholder="create password..."
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
               />
               <ErrorMessage
                 name="password"

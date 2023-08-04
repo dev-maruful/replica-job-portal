@@ -1,10 +1,16 @@
 "use client";
 
+import GetAllUsers from "@/utils/getAllUsers";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const { data: allUsers, refetch } = GetAllUsers();
+  const router = useRouter();
+
   const initialValues = {
     email: "",
     password: "",
@@ -20,7 +26,26 @@ const LoginForm = () => {
       setSubmitting(false);
     }, 1000);
 
-    console.log(values);
+    if (allUsers) {
+      const matchUser = allUsers.find((user) => user.email === values.email);
+      const matchPassword = allUsers.find(
+        (user) => user.password === values.password
+      );
+
+      console.log(matchPassword);
+
+      if (matchUser && matchPassword) {
+        localStorage.setItem("currentUser", JSON.stringify(matchUser));
+        localStorage.setItem("isLoggedIn", true);
+        toast.success("User login successful");
+        refetch();
+        router.push("/");
+      } else if (!matchPassword) {
+        return toast.error("Password do not match");
+      } else {
+        return toast.error("User not valid");
+      }
+    }
   };
 
   return (
@@ -41,7 +66,8 @@ const LoginForm = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-400"
+                placeholder="your email..."
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
               />
               <ErrorMessage
                 name="email"
@@ -58,7 +84,8 @@ const LoginForm = () => {
                 type="password"
                 id="password"
                 name="password"
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-400"
+                placeholder="your password..."
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
               />
               <ErrorMessage
                 name="password"
