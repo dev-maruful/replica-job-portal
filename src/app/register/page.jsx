@@ -9,9 +9,11 @@ import axios from "axios";
 import addUser from "@/utils/addUser";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import GetCurrentUser from "@/utils/getCurrentUser";
 
 const RegisterForm = () => {
   const router = useRouter();
+  const { refetch } = GetCurrentUser();
 
   const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
 
@@ -37,30 +39,29 @@ const RegisterForm = () => {
       setSubmitting(false);
     }, 1000);
 
-    console.log(values);
-    console.log(values.image);
-
     const formData = new FormData();
     formData.append("image", values.image);
-
-    console.log(formData);
 
     // host image to image hosting server
     axios
       .post(image_hosting_url, formData)
       .then((res) => {
-        values.image = res?.data?.data?.display_url;
+        if (values.image) {
+          values.image = res?.data?.data?.display_url;
 
-        // add user to local storage
-        const saveUser = addUser(values);
-        console.log(saveUser);
-        if (saveUser?.status === "success") {
-          resetForm();
-          setImagePreview("");
-          router.push("/");
-          toast.success(saveUser.message);
-        } else if (saveUser?.status === "failed") {
-          toast.error(saveUser.message);
+          // add user to local storage
+          const saveUser = addUser(values);
+          if (saveUser?.status === "success") {
+            resetForm();
+            setImagePreview("");
+            router.push("/");
+            toast.success(saveUser.message);
+            localStorage.setItem("currentUser", JSON.stringify(values));
+            localStorage.setItem("isLoggedIn", true);
+            refetch();
+          } else if (saveUser?.status === "failed") {
+            toast.error(saveUser.message);
+          }
         }
       })
       .catch((err) => console.log(err));

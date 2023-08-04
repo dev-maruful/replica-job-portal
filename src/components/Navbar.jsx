@@ -1,15 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
+import GetCurrentUser from "@/utils/getCurrentUser";
+import UserLogin from "@/utils/userLogin";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [currentUser, setCurrentUser] = useState({});
+  const { data: currentUser, refetch } = GetCurrentUser();
+  // const { data } = UserLogin();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,6 +28,31 @@ const Navbar = () => {
   const handleLogout = () => {
     console.log("logout done");
   };
+
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(userLoggedIn);
+    refetch();
+  }, [currentUser]);
+
+  console.log(isLoggedIn);
+
+  // const {} = useQuery({
+  //   queryKey: "currentUser",
+  //   queryFn: () => {
+  //     const data = localStorage.getItem("currentUser");
+  //     setUser(JSON.parse(data));
+  //   },
+  // });
+
+  // const {} = useQuery({
+  //   queryKey: "isLoggedIn",
+  //   queryFn: () => {
+  //     const loggedUser = localStorage.getItem("isLoggedIn");
+  //     setIsLoggedIn(loggedUser);
+  //     refetch();
+  //   },
+  // });
 
   return (
     <nav className="bg-gray-800 p-4">
@@ -69,7 +100,7 @@ const Navbar = () => {
                 >
                   {/* Replace 'userPhotoUrl' with the actual URL of the user's photo */}
                   <img
-                    src="userPhotoUrl"
+                    src={currentUser && currentUser.image}
                     alt="User's Profile"
                     className="w-8 h-8 rounded-full"
                   />
