@@ -33,6 +33,7 @@ const RegisterForm = () => {
       .min(6, "Password must be at least 6 characters long")
       .required("Password is required"),
     role: Yup.string().required("Role is required"),
+    image: Yup.mixed().required("Image is required"),
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
@@ -196,11 +197,11 @@ const RegisterForm = () => {
                 onChange={(event) => handleImageChange(event, setFieldValue)}
                 className="hidden"
               />
-              {/* <ErrorMessage
+              <ErrorMessage
                 name="image"
                 component="div"
                 className="text-red-500 text-sm"
-              /> */}
+              />
             </div>
 
             <button
