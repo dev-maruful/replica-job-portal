@@ -204,7 +204,7 @@ const PostJobForm = () => {
               disabled={isSubmitting}
               className="w-full bg-[#8c52ff] text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-[#7A51CB]"
             >
-              {isSubmitting ? "Submitting..." : "Submit"}
+              {isSubmitting ? "Publishing..." : "Publish"}
             </button>
           </Form>
         )}

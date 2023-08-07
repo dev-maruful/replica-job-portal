@@ -41,12 +41,12 @@ const Navbar = () => {
 
   const categoryItems = (
     <>
-      <NavItem href="/frontendDev" name="Frontend Developer"></NavItem>
-      <NavItem href="/backendDev" name="Backend Developer"></NavItem>
-      <NavItem href="/fullStackDev" name="Full-stack Developer"></NavItem>
-      <NavItem href="/uiUxDesigner" name="UI/UX Designer"></NavItem>
-      <NavItem href="/digitalMarketer" name="Digital Marketer"></NavItem>
-      <NavItem href="/dataEntry" name="Data Entry Specialist"></NavItem>
+      <NavItem href="/frontendDev" name="Frontend Development"></NavItem>
+      <NavItem href="/backendDev" name="Backend Development"></NavItem>
+      <NavItem href="/fullStackDev" name="Full-stack Development"></NavItem>
+      <NavItem href="/uiUxDesign" name="UI/UX Design"></NavItem>
+      <NavItem href="/digitalMarketing" name="Digital Marketing"></NavItem>
+      <NavItem href="/dataEntry" name="Data Entry"></NavItem>
     </>
   );
 
@@ -212,32 +212,32 @@ const Navbar = () => {
                 <div className="ml-4">
                   <NavItem
                     href="/frontendDev"
-                    name="Frontend Developer"
+                    name="Frontend Development"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                   <NavItem
                     href="/backendDev"
-                    name="Backend Developer"
+                    name="Backend Development"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                   <NavItem
                     href="/fullStackDev"
-                    name="Full-stack Developer"
+                    name="Full-stack Development"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                   <NavItem
-                    href="/uiUxDesigner"
-                    name="UI/UX Designer"
+                    href="/uiUxDesign"
+                    name="UI/UX Design"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                   <NavItem
-                    href="/digitalMarketer"
-                    name="Digital Marketer"
+                    href="/digitalMarketing"
+                    name="Digital Marketing"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                   <NavItem
                     href="/dataEntry"
-                    name="Data Entry Specialist"
+                    name="Data Entry"
                     classes="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"
                   ></NavItem>
                 </div>
