@@ -1,5 +1,3 @@
-import { toast } from "react-hot-toast";
-
 const addUser = (data) => {
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -9,7 +7,6 @@ const addUser = (data) => {
     return { message: "User already exists", status: "failed" };
   } else {
     users.push(data);
-    // toast.success("User registered successfully");
 
     //   save the updated user to the local storage
     localStorage.setItem("users", JSON.stringify(users));

@@ -44,6 +44,8 @@ const RegisterForm = () => {
     const formData = new FormData();
     formData.append("image", values.image);
 
+    console.log(formData);
+
     // host image to image hosting server
     axios
       .post(image_hosting_url, formData)

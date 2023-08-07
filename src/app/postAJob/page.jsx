@@ -4,35 +4,81 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { BsUpload } from "react-icons/bs";
+import addSellerJob from "@/utils/addSellerJob";
+import GetAllSellerJobs from "@/utils/getAllSellerJobs";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import GetCurrentUser from "@/utils/getCurrentUser";
+import Image from "next/image";
 
 const PostJobSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   category: Yup.string().required("Category is required"),
   pricing: Yup.string().required("Pricing is required"),
   description: Yup.string().required("Description is required"),
-  photo: Yup.string().required("Photo is required"),
+  photo: Yup.mixed().required("Photo is required"),
 });
 
 const jobCategories = [
-  "Web Development",
-  "Graphic Design",
-  "Content Writing",
-  "Video Editing",
-  // Add more categories as needed
+  "Frontend Development",
+  "Backend Development",
+  "Full-stack Development",
+  "UI/UX Design",
+  "Digital Marketing",
+  "Data Entry",
 ];
 
 const PostJobForm = () => {
   const [imagePreview, setImagePreview] = useState("");
+  const { refetch } = GetAllSellerJobs();
+  const { data } = GetCurrentUser();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    // Submit logic here
-    console.log(values);
-    setSubmitting(false);
+  const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
+
+  const initialValues = {
+    title: "",
+    category: "",
+    pricing: "",
+    description: "",
+    photo: null,
+  };
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 1000);
+
+    const formData = new FormData();
+    formData.append("image", values.photo);
+
+    console.log(formData, values);
+
+    // host image to image hosting server
+
+    axios
+      .post(image_hosting_url, formData)
+      .then((res) => {
+        if (values.photo) {
+          values.photo = res?.data?.data?.display_url;
+          values.pricing = parseFloat(values.pricing);
+          values.email = data.email;
+
+          // add post to local storage
+          const saveJobPost = addSellerJob(values);
+          if (saveJobPost?.status === "success") {
+            resetForm();
+            setImagePreview("");
+            toast.success(saveJobPost.message);
+            refetch();
+          }
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleImageChange = (event, setFieldValue) => {
     const file = event.currentTarget.files[0];
-    setFieldValue("image", file);
+    setFieldValue("photo", file);
     file && setImagePreview(URL.createObjectURL(file));
   };
 
@@ -40,13 +86,7 @@ const PostJobForm = () => {
     <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6 text-center">Post A Job</h1>
       <Formik
-        initialValues={{
-          title: "",
-          category: "",
-          pricing: "",
-          description: "",
-          photo: "",
-        }}
+        initialValues={initialValues}
         validationSchema={PostJobSchema}
         onSubmit={handleSubmit}
       >
@@ -61,6 +101,7 @@ const PostJobForm = () => {
                 id="title"
                 name="title"
                 className="w-full p-2 border rounded"
+                placeholder="job title..."
               />
               <ErrorMessage
                 name="title"
@@ -100,6 +141,7 @@ const PostJobForm = () => {
                 id="pricing"
                 name="pricing"
                 className="w-full p-2 border rounded"
+                placeholder="write in dollar amount ($)"
               />
               <ErrorMessage
                 name="pricing"
@@ -116,6 +158,7 @@ const PostJobForm = () => {
                 id="description"
                 name="description"
                 className="w-full p-2 border rounded"
+                placeholder="job description..."
               />
               <ErrorMessage
                 name="description"
@@ -123,8 +166,15 @@ const PostJobForm = () => {
                 className="text-red-500"
               />
             </div>
+
+            {imagePreview && (
+              <div className="flex items-center justify-center mb-2">
+                <Image src={imagePreview} width={200} height={100}></Image>
+              </div>
+            )}
+
             <div className="mb-4">
-              <label htmlFor="image" className="block mb-2">
+              <label htmlFor="image" className="block font-semibold mb-1">
                 Job Image
               </label>
 
