@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const NavItems = ({ href, name }) => {
+const NavItem = ({ href, name }) => {
   return (
     <Link href={href} className="text-white text-sm hover:text-gray-300">
       {name}
@@ -8,4 +8,4 @@ const NavItems = ({ href, name }) => {
   );
 };
 
-export default NavItems;
+export default NavItem;
