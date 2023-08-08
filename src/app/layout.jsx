@@ -21,9 +21,7 @@ export default function RootLayout({ children }) {
       <QueryClientProvider client={queryClient}>
         <body className={inter.className}>
           <Navbar></Navbar>
-          <div className="min-h-[calc(100vh-512.667px)] my-10 mx-5">
-            {children}
-          </div>
+          <div className="min-h-[calc(100vh-188px)] my-10 mx-5">{children}</div>
           <Footer></Footer>
           <Toaster />
         </body>

@@ -62,6 +62,8 @@ const PostJobForm = () => {
           values.photo = res?.data?.data?.display_url;
           values.pricing = parseFloat(values.pricing);
           values.email = data.email;
+          values.seller_name = data.name;
+          values.seller_image = data.image;
 
           // add post to local storage
           const saveJobPost = addSellerJob(values);
