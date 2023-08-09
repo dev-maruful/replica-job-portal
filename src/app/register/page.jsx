@@ -10,6 +10,7 @@ import addUser from "@/utils/addUser";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import GetCurrentUser from "@/utils/getCurrentUser";
+import { FaFileUpload } from "react-icons/fa";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -20,18 +21,25 @@ const RegisterForm = () => {
 
   const initialValues = {
     name: "",
+    user_title: "",
     email: "",
     password: "",
+    confirm_password: "",
+    image: "",
     role: "buyer", // Default role is set to "buyer"
     image: null,
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
+    user_title: Yup.string().required("Title is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters long")
       .required("Password is required"),
+    confirm_password: Yup.string()
+      .required()
+      .oneOf([Yup.ref("password"), null], "Password must match"),
     role: Yup.string().required("Role is required"),
     image: Yup.mixed().required("Image is required"),
   });
@@ -78,7 +86,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
       {imagePreview && (
         <div className="flex items-center justify-center mb-2">
@@ -96,26 +104,46 @@ const RegisterForm = () => {
       >
         {({ isSubmitting, setFieldValue }) => (
           <Form>
-            <div className="mb-4">
-              <label htmlFor="name" className="block mb-2">
-                Name
-              </label>
-              <Field
-                type="text"
-                id="name"
-                name="name"
-                placeholder="your name..."
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="text-red-500 text-sm"
-              />
+            <div className="md:flex gap-5">
+              <div className="mb-4">
+                <label htmlFor="name" className="block mb-2 font-medium">
+                  Name
+                </label>
+                <Field
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="your name..."
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="user_title" className="block mb-2 font-medium">
+                  Title
+                </label>
+                <Field
+                  type="text"
+                  id="user_title"
+                  name="user_title"
+                  placeholder="your title..."
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
             </div>
 
             <div className="mb-4">
-              <label htmlFor="email" className="block mb-2">
+              <label htmlFor="email" className="block mb-2 font-medium">
                 Email
               </label>
               <Field
@@ -132,26 +160,49 @@ const RegisterForm = () => {
               />
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="password" className="block mb-2">
-                Password
-              </label>
-              <Field
-                type="password"
-                id="password"
-                name="password"
-                placeholder="create password..."
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="text-red-500 text-sm"
-              />
+            <div className="md:flex gap-5">
+              <div className="mb-4">
+                <label htmlFor="password" className="block mb-2 font-medium">
+                  Password
+                </label>
+                <Field
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="create password..."
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="confirm_password"
+                  className="block mb-2 font-medium"
+                >
+                  Confirm Password
+                </label>
+                <Field
+                  type="password"
+                  id="confirm_password"
+                  name="confirm_password"
+                  placeholder="confirm password..."
+                  className="w-full px-4 py-2 border rounded focus:outline-none focus:border-[#8c52ff]"
+                />
+                <ErrorMessage
+                  name="confirm_password"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
+              </div>
             </div>
 
             <div className="mb-4">
-              <label className="block mb-2">Who you are?</label>
+              <label className="block mb-2 font-medium">Who you are?</label>
               <div className="flex items-center">
                 <label className="mr-4">
                   <Field
@@ -180,30 +231,34 @@ const RegisterForm = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="image" className="block mb-2">
+              <label htmlFor="image" className="block mb-2 font-medium">
                 Profile Image
               </label>
 
               <label
                 htmlFor="image"
-                className={`w-full px-4 py-2 border rounded cursor-pointer flex items-center justify-center bg-[#8c52ff] text-white hover:bg-[#7A51CB] focus:outline-none`}
+                className="border-dotted border-2 border-gray-400 p-4 flex flex-col items-center justify-center cursor-pointer rounded"
               >
-                <BsUpload className="mr-2" />{" "}
-                {imagePreview ? "Change Image" : "Upload Image"}
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <span className="text-gray-500 mb-2">
+                    {imagePreview ? "Change Image" : "Upload Image"}
+                  </span>
+                  <FaFileUpload className="text-[#8c52ff] text-2xl mb-2" />
+                </div>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(event) => handleImageChange(event, setFieldValue)}
+                />
+                <ErrorMessage
+                  name="image"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={(event) => handleImageChange(event, setFieldValue)}
-                className="hidden"
-              />
-              <ErrorMessage
-                name="image"
-                component="div"
-                className="text-red-500 text-sm"
-              />
             </div>
 
             <button
@@ -216,12 +271,12 @@ const RegisterForm = () => {
           </Form>
         )}
       </Formik>
-      <div className="mt-2 text-sm">
+      <div className="mt-2 text-sm text-center">
         <p>
           Already have an account?{" "}
           <Link href="/login">
             <span className="underline hover:text-[#8c52ff] hover:cursor-pointer">
-              Sign In
+              Login
             </span>
           </Link>
         </p>

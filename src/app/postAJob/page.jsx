@@ -3,18 +3,20 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { BsUpload } from "react-icons/bs";
 import addSellerJob from "@/utils/addSellerJob";
 import GetAllSellerJobs from "@/utils/getAllSellerJobs";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import GetCurrentUser from "@/utils/getCurrentUser";
 import Image from "next/image";
+import { FaFileUpload } from "react-icons/fa";
 
 const PostJobSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   category: Yup.string().required("Category is required"),
-  pricing: Yup.string().required("Pricing is required"),
+  basic: Yup.number().required("Pricing is required"),
+  standard: Yup.number().required("Pricing is required"),
+  premium: Yup.number().required("Pricing is required"),
   description: Yup.string().required("Description is required"),
   photo: Yup.mixed().required("Photo is required"),
 });
@@ -38,7 +40,9 @@ const PostJobForm = () => {
   const initialValues = {
     title: "",
     category: "",
-    pricing: "",
+    basic: "",
+    standard: "",
+    premium: "",
     description: "",
     photo: null,
   };
@@ -60,7 +64,9 @@ const PostJobForm = () => {
       .then((res) => {
         if (values.photo) {
           values.photo = res?.data?.data?.display_url;
-          values.pricing = parseFloat(values.pricing);
+          values.basic = parseFloat(values.basic);
+          values.standard = parseFloat(values.standard);
+          values.premium = parseFloat(values.premium);
           values.email = data.email;
           values.seller_name = data.name;
           values.seller_image = data.image;
@@ -95,7 +101,7 @@ const PostJobForm = () => {
         {({ isSubmitting, setFieldValue }) => (
           <Form>
             <div className="mb-4">
-              <label htmlFor="title" className="block font-semibold mb-1">
+              <label htmlFor="title" className="block font-medium mb-1">
                 Job Title
               </label>
               <Field
@@ -112,7 +118,7 @@ const PostJobForm = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="category" className="block font-semibold mb-1">
+              <label htmlFor="category" className="block font-medium mb-1">
                 Job Category
               </label>
               <Field
@@ -135,31 +141,66 @@ const PostJobForm = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="pricing" className="block font-semibold mb-1">
+              <label htmlFor="pricing" className="block font-medium">
                 Pricing
               </label>
-              <Field
-                type="text"
-                id="pricing"
-                name="pricing"
-                className="w-full p-2 border rounded"
-                placeholder="write in dollar amount ($)"
-              />
-              <ErrorMessage
-                name="pricing"
-                component="div"
-                className="text-red-500"
-              />
+              <p className="text-sm mb-1 text-gray-500">
+                write in dollar ($) amount
+              </p>
+              <div className="flex gap-3">
+                <div>
+                  <Field
+                    type="text"
+                    id="basic"
+                    name="basic"
+                    className="w-full p-2 border rounded"
+                    placeholder="Basic"
+                  />
+                  <ErrorMessage
+                    name="basic"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+                <div>
+                  <Field
+                    type="text"
+                    id="standard"
+                    name="standard"
+                    className="w-full p-2 border rounded"
+                    placeholder="Standard"
+                  />
+                  <ErrorMessage
+                    name="standard"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+                <div>
+                  <Field
+                    type="text"
+                    id="premium"
+                    name="premium"
+                    className="w-full p-2 border rounded"
+                    placeholder="Premium"
+                  />
+                  <ErrorMessage
+                    name="premium"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
+              </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="description" className="block font-semibold mb-1">
+              <label htmlFor="description" className="block font-medium mb-1">
                 Description
               </label>
               <Field
                 as="textarea"
                 id="description"
                 name="description"
-                className="w-full p-2 border rounded"
+                className="w-full p-4 border rounded"
                 placeholder="job description..."
               />
               <ErrorMessage
@@ -176,30 +217,34 @@ const PostJobForm = () => {
             )}
 
             <div className="mb-4">
-              <label htmlFor="image" className="block font-semibold mb-1">
-                Job Image
+              <label htmlFor="image" className="block font-medium mb-1">
+                Job Photo
               </label>
 
               <label
                 htmlFor="photo"
-                className={`w-full px-4 py-2 border rounded cursor-pointer flex items-center justify-center bg-[#8c52ff] text-white hover:bg-[#7A51CB] focus:outline-none`}
+                className="border-dotted border-2 border-gray-400 p-4 flex flex-col items-center justify-center cursor-pointer rounded"
               >
-                <BsUpload className="mr-2" />{" "}
-                {imagePreview ? "Change Photo" : "Upload Photo"}
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <span className="text-gray-500 mb-2">
+                    {imagePreview ? "Change Photo" : "Upload Photo"}
+                  </span>
+                  <FaFileUpload className="text-[#8c52ff] text-2xl mb-2" />
+                </div>
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  accept="photo/*"
+                  className="hidden"
+                  onChange={(event) => handleImageChange(event, setFieldValue)}
+                />
+                <ErrorMessage
+                  name="photo"
+                  component="div"
+                  className="text-red-500 text-sm"
+                />
               </label>
-              <input
-                type="file"
-                id="photo"
-                name="photo"
-                accept="photo/*"
-                onChange={(event) => handleImageChange(event, setFieldValue)}
-                className="hidden"
-              />
-              <ErrorMessage
-                name="photo"
-                component="div"
-                className="text-red-500 text-sm"
-              />
             </div>
             <button
               type="submit"

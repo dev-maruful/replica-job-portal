@@ -7,6 +7,7 @@ import Image from "next/image";
 import GetCurrentUser from "@/utils/getCurrentUser";
 import { toast } from "react-hot-toast";
 import NavItem from "./NavItem";
+import NavLink from "./NavLink";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,6 +51,25 @@ const Navbar = () => {
     </>
   );
 
+  const navItems = [
+    {
+      href: "/",
+      name: "Home",
+    },
+    {
+      href: "/profile",
+      name: "Profile",
+    },
+    {
+      href: "/dashboard",
+      name: "Dashboard",
+    },
+    {
+      href: "/postAJob",
+      name: "Post A Job",
+    },
+  ];
+
   return (
     <header>
       <nav className="bg-gray-800 p-4">
@@ -70,28 +90,18 @@ const Navbar = () => {
           {/* Middle - Categories */}
           {currentUser && (
             <div className="hidden md:flex space-x-4">
-              {/* Add your categories links here */}
-              <Link href="/" className="text-white text-sm hover:text-gray-300">
-                Home
-              </Link>
-              <Link
-                href="/profile"
-                className="text-white text-sm hover:text-gray-300"
-              >
-                Profile
-              </Link>
-              <Link
-                href="/dashboard"
-                className="text-white text-sm hover:text-gray-300"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/postAJob"
-                className="text-white text-sm hover:text-gray-300"
-              >
-                Post a job
-              </Link>
+              {/*categories links*/}
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.href}
+                  exact={item.href === "/"}
+                  activeClassName="border-b-4 border-[#8c52ff]"
+                  href={item.href}
+                  className="text-white text-sm hover:text-[#8c52ff]"
+                >
+                  {item.name}
+                </NavLink>
+              ))}
             </div>
           )}
 
@@ -110,13 +120,13 @@ const Navbar = () => {
                     <img
                       src={currentUser && currentUser.image}
                       alt="User's Profile"
-                      className="w-8 h-8 rounded-full"
+                      className="w-10 h-10 rounded-full"
                     />
                   </button>
 
                   {/* Dropdown menu */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg">
+                    <div className="absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg z-50">
                       {/* Add dropdown menu items here */}
                       <Link href="/profile">
                         <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm">
