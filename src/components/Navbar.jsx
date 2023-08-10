@@ -8,8 +8,10 @@ import GetCurrentUser from "@/utils/getCurrentUser";
 import { toast } from "react-hot-toast";
 import NavItem from "./NavItem";
 import NavLink from "./NavLink";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -29,6 +31,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    router.push("/login");
     toast.success("Logout successful");
     localStorage.setItem("isLoggedIn", false);
     localStorage.removeItem("currentUser");
