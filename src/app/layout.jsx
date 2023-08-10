@@ -6,6 +6,7 @@ import { Inter } from "next/font/google";
 import Footer from "@/components/Footer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
+import CategoryBar from "@/components/CategoryBar";
 
 const inter = Inter({ subsets: ["latin"] });
 const queryClient = new QueryClient();
@@ -18,16 +19,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <QueryClientProvider client={queryClient}>
-        <body className={inter.className}>
+      <body className={inter.className}>
+        <QueryClientProvider client={queryClient}>
           <Navbar></Navbar>
+          <CategoryBar></CategoryBar>
           <div className="min-h-[calc(100vh-188px)] container md:mx-auto my-10">
             {children}
           </div>
           <Footer></Footer>
           <Toaster />
-        </body>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </body>
     </html>
   );
 }

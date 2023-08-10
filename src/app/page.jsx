@@ -1,15 +1,33 @@
 "use client";
 
-import GetSellerFrontend from "@/utils/getSellerFrontend";
-import Image from "next/image";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
+import CarouselCard from "@/components/CarouselCard";
+import CategoryTitle from "@/components/CategoryTitle";
+import GetAllSellerJobs from "@/utils/getAllSellerJobs";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ClockLoader } from "react-spinners";
 
 export default function Home() {
-  const { data, isLoading } = GetSellerFrontend();
+  const { data: sellerJobs, isLoading } = GetAllSellerJobs();
+
+  const frontendJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "Frontend Development"
+  );
+  const backendJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "Backend Development"
+  );
+  const fullStackJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "Full-stack Development"
+  );
+  const uiUxJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "UI/UX Design"
+  );
+  const digitalMarketingJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "Digital Marketing"
+  );
+  const dataEntryJobs = sellerJobs?.filter(
+    (jobs) => jobs.category === "Data Entry"
+  );
 
   if (isLoading) {
     return (
@@ -25,7 +43,7 @@ export default function Home() {
     );
   }
 
-  // console.log(data[0][0]);
+  console.log(sellerJobs);
 
   const responsive = {
     superLargeDesktop: {
@@ -48,45 +66,132 @@ export default function Home() {
   };
 
   return (
-    <main className="">
-      <div>
-        <h1 className="text-xl font-semibold mb-3 ml-3 md:ml-0">
-          Frontend Development
-        </h1>
+    <main className="space-y-10">
+      {/* frontend carousel */}
+      {frontendJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="Frontend Development"></CategoryTitle>
 
-        <Carousel responsive={responsive}>
-          <div>hello</div>
-          {data &&
-            data[0].map((item, index) => (
-              <div
+          <Carousel responsive={responsive} className="z-0">
+            {frontendJobs.map((item, index) => (
+              <CarouselCard
                 key={index}
-                className="rounded-xl border border-r-2 border-b-2 border-l-0 border-gray-200 mx-3 shadow-lg"
-              >
-                <div className="relative">
-                  <img
-                    className="w-full rounded-t-xl mb-3 h-64 object-cover"
-                    src={item.photo}
-                    alt=""
-                  />
-                </div>
-                <div className="flex items-center gap-3 mb-3 pl-2">
-                  <img
-                    src={item.seller_image}
-                    alt=""
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <h1 className="font-medium">{item.seller_name}</h1>
-                </div>
-                <h1 className="line-clamp-1 font-medium px-2 mb-2 text-gray-500">
-                  {item.title}
-                </h1>
-                <h1 className="pl-2 font-semibold mb-3">
-                  Starts from ${item.pricing}
-                </h1>
-              </div>
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
             ))}
-        </Carousel>
-      </div>
+          </Carousel>
+        </div>
+      )}
+
+      {/* backend carousel */}
+      {backendJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="Backend Development"></CategoryTitle>
+
+          <Carousel responsive={responsive} className="z-0">
+            {backendJobs.map((item, index) => (
+              <CarouselCard
+                key={index}
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
+      {/* full-stack carousel */}
+      {fullStackJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="Full-stack Development"></CategoryTitle>
+
+          <Carousel responsive={responsive} className="z-0">
+            {fullStackJobs.map((item, index) => (
+              <CarouselCard
+                key={index}
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
+      {/* UI/UX Design carousel */}
+      {uiUxJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="UI/UX Design"></CategoryTitle>
+
+          <Carousel responsive={responsive} className="z-0">
+            {uiUxJobs.map((item, index) => (
+              <CarouselCard
+                key={index}
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
+      {/* Digital Marketing carousel */}
+      {digitalMarketingJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="Digital Marketing"></CategoryTitle>
+
+          <Carousel responsive={responsive} className="z-0">
+            {digitalMarketingJobs.map((item, index) => (
+              <CarouselCard
+                key={index}
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
+            ))}
+          </Carousel>
+        </div>
+      )}
+
+      {/* Data Entry carousel */}
+      {dataEntryJobs.length !== 0 && (
+        <div>
+          <CategoryTitle title="Data Entry"></CategoryTitle>
+
+          <Carousel responsive={responsive} className="z-0">
+            {dataEntryJobs.map((item, index) => (
+              <CarouselCard
+                key={index}
+                jobPhoto={item.photo}
+                jobTitle={item.title}
+                sellerImage={item.seller_image}
+                sellerName={item.seller_name}
+                sellerTitle={item.seller_title}
+                pricing={item.basic}
+              ></CarouselCard>
+            ))}
+          </Carousel>
+        </div>
+      )}
     </main>
   );
 }

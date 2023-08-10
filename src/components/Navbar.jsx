@@ -40,29 +40,14 @@ const Navbar = () => {
     setIsLoggedIn(userLoggedIn);
   }, [currentUser]);
 
-  const categoryItems = (
-    <>
-      <NavItem href="/frontendDev" name="Frontend Development"></NavItem>
-      <NavItem href="/backendDev" name="Backend Development"></NavItem>
-      <NavItem href="/fullStackDev" name="Full-stack Development"></NavItem>
-      <NavItem href="/uiUxDesign" name="UI/UX Design"></NavItem>
-      <NavItem href="/digitalMarketing" name="Digital Marketing"></NavItem>
-      <NavItem href="/dataEntry" name="Data Entry"></NavItem>
-    </>
-  );
-
   const navItems = [
     {
       href: "/",
       name: "Home",
     },
     {
-      href: "/profile",
+      href: `/profile/${currentUser?.email}`,
       name: "Profile",
-    },
-    {
-      href: "/dashboard",
-      name: "Dashboard",
     },
     {
       href: "/postAJob",
@@ -71,12 +56,12 @@ const Navbar = () => {
   ];
 
   return (
-    <header>
-      <nav className="bg-gray-800 p-4">
+    <header className="sticky top-0 z-50">
+      <nav className="bg-gray-800 p-4 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           {/* Left side - Logo */}
           <div className="flex items-center gap-3">
-            <Image src={logo} alt="logo" width={48}></Image>
+            <Image src={logo} alt="logo" width={48} height={"auto"}></Image>
             <div>
               <Link
                 href="/"
@@ -111,12 +96,11 @@ const Navbar = () => {
             {isLoggedIn && currentUser ? (
               <>
                 {/* User's photo */}
-                <div className="relative">
+                <div className="hidden md:block md:relative">
                   <button
                     className="flex text-white items-center focus:outline-none"
                     onClick={toggleProfile}
                   >
-                    {/* Replace 'userPhotoUrl' with the actual URL of the user's photo */}
                     <img
                       src={currentUser && currentUser.image}
                       alt="User's Profile"
@@ -126,9 +110,11 @@ const Navbar = () => {
 
                   {/* Dropdown menu */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg z-50">
+                    <div
+                      className={`absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg z-50`}
+                    >
                       {/* Add dropdown menu items here */}
-                      <Link href="/profile">
+                      <Link href={`/profile/${currentUser?.email}`}>
                         <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm">
                           Profile
                         </span>
@@ -161,10 +147,10 @@ const Navbar = () => {
           </div>
         </div>
         {/* Responsive menu for smaller devices */}
-        <div className="md:hidden mt-4">
+        <div className="md:hidden mt-4 relative">
           <button
             onClick={toggleMenu}
-            className="text-white font-bold text-xl focus:outline-none"
+            className="text-white font-bold text-xl focus:outline-none absolute -top-12 right-0 z-[100]"
           >
             <svg
               className={`w-6 h-6 fill-current ${
@@ -188,7 +174,6 @@ const Navbar = () => {
 
           {isMenuOpen && (
             <div className="mt-2">
-              {/* Add your responsive menu items here */}
               <Link href="/">
                 <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                   Home
@@ -264,14 +249,14 @@ const Navbar = () => {
               {/* Add other responsive menu items */}
               {currentUser && (
                 <>
-                  <Link href="/profile">
+                  <Link href={`/profile/${currentUser?.email}`}>
                     <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                       Profile
                     </span>
                   </Link>
-                  <Link href="/profile">
+                  <Link href="/postAJob">
                     <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
-                      Dashboard
+                      Post A Job
                     </span>
                   </Link>
                   <button
@@ -284,13 +269,6 @@ const Navbar = () => {
               )}
             </div>
           )}
-        </div>
-      </nav>
-      <nav>
-        <div className="bg-[#8c52ff]">
-          <div className="container mx-auto space-x-4 py-1 hidden md:flex items-center justify-center">
-            {categoryItems}
-          </div>
         </div>
       </nav>
     </header>

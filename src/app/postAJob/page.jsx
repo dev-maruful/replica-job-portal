@@ -12,11 +12,23 @@ import Image from "next/image";
 import { FaFileUpload } from "react-icons/fa";
 
 const PostJobSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
+  title: Yup.string()
+    .min(10, "Title cannot be less than 10 characters")
+    .max(100, "Title cannot be more than 10 character")
+    .required("Title is required"),
   category: Yup.string().required("Category is required"),
-  basic: Yup.number().required("Pricing is required"),
-  standard: Yup.number().required("Pricing is required"),
-  premium: Yup.number().required("Pricing is required"),
+  basic: Yup.number()
+    .required("Pricing is required")
+    .typeError("Price must be a number")
+    .positive("Price must be a positive number"),
+  standard: Yup.number()
+    .required("Pricing is required")
+    .typeError("Price must be a number")
+    .positive("Price must be a positive number"),
+  premium: Yup.number()
+    .required("Pricing is required")
+    .typeError("Price must be a number")
+    .positive("Price must be a positive number"),
   description: Yup.string().required("Description is required"),
   photo: Yup.mixed().required("Photo is required"),
 });
@@ -70,6 +82,7 @@ const PostJobForm = () => {
           values.email = data.email;
           values.seller_name = data.name;
           values.seller_image = data.image;
+          values.seller_title = data.user_title;
 
           // add post to local storage
           const saveJobPost = addSellerJob(values);
@@ -212,7 +225,7 @@ const PostJobForm = () => {
 
             {imagePreview && (
               <div className="flex items-center justify-center mb-2">
-                <Image src={imagePreview} width={200} height={100}></Image>
+                <Image src={imagePreview} width={200} height={100} alt="demo" />
               </div>
             )}
 
