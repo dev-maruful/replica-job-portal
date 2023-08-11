@@ -95,7 +95,7 @@ const ProfilePage = () => {
         <button
           disabled={showInputField}
           onClick={() => setShowInputField(true)}
-          className={`w-full bg-[#8c52ff] text-white font-bold py-2 px-4 rounded focus:outline-none hover:bg-[#7A51CB] ${
+          className={`w-full bg-[#8c52ff] text-white font-bold py-2 px-4 rounded hover:bg-[#7A51CB] ${
             showInputField ? "bg-[#7A51CB]" : ""
           }`}
         >
