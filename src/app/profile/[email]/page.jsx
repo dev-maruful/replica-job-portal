@@ -75,7 +75,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="md:flex gap-10 mx-5 md:mx-0">
+    <div className="md:flex gap-10 mx-3 md:mx-0">
       <div className="space-y-3 md:w-1/4 md:sticky top-0 mb-10 md:mb-0">
         <div className="flex justify-center items-center md:block">
           <img

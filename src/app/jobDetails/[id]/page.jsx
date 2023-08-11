@@ -2,6 +2,7 @@
 
 import RelatedJobsCard from "@/components/RelatedJobsCard";
 import GetAllSellerJobs from "@/utils/getAllSellerJobs";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ClockLoader } from "react-spinners";
 
@@ -44,8 +45,8 @@ const JobDetailsPage = () => {
   } = currentJob;
 
   return (
-    <div className="flex gap-10">
-      <div className="space-y-5 w-2/3">
+    <div className="md:flex gap-10 mx-3 md:mx-0">
+      <div className="space-y-5 md:w-2/3 mb-10 md:mb-0">
         <h1 className="text-2xl font-medium">{title}</h1>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -61,14 +62,16 @@ const JobDetailsPage = () => {
               </h3>
             </div>
           </div>
-          <button className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded ">
-            Order Now
-          </button>
+          <Link href={`/jobDetails/${jobId}/order`}>
+            <button className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded hidden md:block">
+              Order Now
+            </button>
+          </Link>
         </div>
         <img
           src={photo}
           alt="job photo"
-          className="w-full rounded-xl h-[500px] object-cover"
+          className="w-full rounded-xl h-64 md:h-[500px] object-cover"
         />
         <div>
           <h3 className="text-lg font-medium mb-5">Pricing:</h3>
@@ -91,12 +94,14 @@ const JobDetailsPage = () => {
           <p className="text-lg font-medium">Description:</p>
           <p className="text-gray-500">{description}</p>
         </div>
-        <button className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded ">
-          Order Now
-        </button>
+        <Link href={`/jobDetails/${jobId}/order`}>
+          <button className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5">
+            Order Now
+          </button>
+        </Link>
       </div>
 
-      <div className="w-1/3">
+      <div className="md:w-1/3">
         <h1 className="text-xl font-medium border-b-2 border-black mb-5">
           Related Jobs
         </h1>
