@@ -43,8 +43,6 @@ export default function Home() {
     );
   }
 
-  console.log(sellerJobs);
-
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -64,6 +62,8 @@ export default function Home() {
       items: 1,
     },
   };
+
+  console.log(frontendJobs);
 
   return (
     <main className="space-y-10">
