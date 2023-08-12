@@ -14,7 +14,7 @@ import { EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const ProfilePage = () => {
   const { data: currentUser } = GetCurrentUser();
-  const { data: sellerJobs, isLoading } = GetAllSellerJobs();
+  const { data: allSellerJobs, isLoading, refetch } = GetAllSellerJobs();
   const { data: allUsers } = GetAllUsers();
   const [showInputField, setShowInputField] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     );
   }
 
-  const currentUserPostedJobs = sellerJobs?.filter(
+  let currentUserPostedJobs = allSellerJobs?.filter(
     (job) => job.email === currentUser?.email
   );
 
@@ -51,8 +51,6 @@ const ProfilePage = () => {
     setTimeout(() => {
       setSubmitting(false);
     }, 1000);
-
-    console.log(values, currentUser, allUsers);
 
     // update current user password on local storage
     currentUser.password = values.password;
@@ -73,6 +71,29 @@ const ProfilePage = () => {
     setShowInputField(false);
     toast.success("Password updated successfully");
   };
+
+  const handleDelete = (id) => {
+    const jobToDelete = currentUserPostedJobs.find((job) =>
+      job.photo.includes(id)
+    );
+
+    const newCurrentUserPostedJobs = currentUserPostedJobs.filter(
+      (job) => job.photo !== jobToDelete.photo
+    );
+    currentUserPostedJobs = newCurrentUserPostedJobs;
+    const sellerJobsBeforeDelete = allSellerJobs.filter(
+      (job) => job.email !== currentUser.email
+    );
+
+    const newSellerJobs = [...sellerJobsBeforeDelete, ...currentUserPostedJobs];
+
+    localStorage.setItem("sellerJobs", JSON.stringify(newSellerJobs));
+    refetch();
+    toast.success("Job deleted successfully");
+    // console.log([...sellerJobsBeforeDelete, ...currentUserPostedJobs]);
+  };
+
+  console.log(allSellerJobs);
 
   return (
     <div className="md:flex gap-10 mx-3 md:mx-0">
@@ -169,6 +190,7 @@ const ProfilePage = () => {
               title={job.title}
               category={job.category}
               price={job.basic}
+              handleDelete={handleDelete}
             ></UserPostedJobCard>
           ))
         ) : (

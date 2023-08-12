@@ -68,12 +68,12 @@ export default function Home() {
   return (
     <main className="space-y-10">
       {/* frontend carousel */}
-      {frontendJobs.length !== 0 && (
+      {frontendJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="Frontend Development"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {frontendJobs.map((item, index) => (
+            {frontendJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
@@ -89,12 +89,12 @@ export default function Home() {
       )}
 
       {/* backend carousel */}
-      {backendJobs.length !== 0 && (
+      {backendJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="Backend Development"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {backendJobs.map((item, index) => (
+            {backendJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
@@ -110,12 +110,12 @@ export default function Home() {
       )}
 
       {/* full-stack carousel */}
-      {fullStackJobs.length !== 0 && (
+      {fullStackJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="Full-stack Development"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {fullStackJobs.map((item, index) => (
+            {fullStackJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
@@ -131,12 +131,12 @@ export default function Home() {
       )}
 
       {/* UI/UX Design carousel */}
-      {uiUxJobs.length !== 0 && (
+      {uiUxJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="UI/UX Design"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {uiUxJobs.map((item, index) => (
+            {uiUxJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
@@ -152,12 +152,12 @@ export default function Home() {
       )}
 
       {/* Digital Marketing carousel */}
-      {digitalMarketingJobs.length !== 0 && (
+      {digitalMarketingJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="Digital Marketing"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {digitalMarketingJobs.map((item, index) => (
+            {digitalMarketingJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
@@ -173,12 +173,12 @@ export default function Home() {
       )}
 
       {/* Data Entry carousel */}
-      {dataEntryJobs.length !== 0 && (
+      {dataEntryJobs?.length !== 0 && (
         <div>
           <CategoryTitle title="Data Entry"></CategoryTitle>
 
           <Carousel responsive={responsive} className="z-0">
-            {dataEntryJobs.map((item, index) => (
+            {dataEntryJobs?.map((item, index) => (
               <CarouselCard
                 key={index}
                 jobPhoto={item.photo}
