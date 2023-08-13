@@ -63,7 +63,7 @@ export default function Home() {
     },
   };
 
-  console.log(frontendJobs);
+  frontendJobs;
 
   return (
     <main className="space-y-10">

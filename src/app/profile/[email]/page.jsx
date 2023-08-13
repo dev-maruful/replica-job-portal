@@ -62,7 +62,7 @@ const ProfilePage = () => {
     const filterOtherUsers = allUsers.filter(
       (user) => user.email !== currentUser.email
     );
-    console.log(findUser);
+    findUser;
 
     findUser.password = values.password;
     findUser.confirm_password = values.password;
@@ -108,7 +108,7 @@ const ProfilePage = () => {
     });
   };
 
-  console.log(currentUserPostedJobs);
+  currentUserPostedJobs;
 
   return (
     <div className="md:flex gap-10 mx-3 md:mx-0">

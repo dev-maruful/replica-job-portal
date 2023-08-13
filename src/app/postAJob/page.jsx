@@ -67,7 +67,7 @@ const PostJobForm = () => {
     const formData = new FormData();
     formData.append("image", values.photo);
 
-    console.log(formData, values);
+    formData, values;
 
     // host image to image hosting server
 
@@ -94,7 +94,7 @@ const PostJobForm = () => {
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   const handleImageChange = (event, setFieldValue) => {

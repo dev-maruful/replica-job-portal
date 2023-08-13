@@ -32,7 +32,7 @@ const LoginForm = () => {
         (user) => user.password === values.password
       );
 
-      console.log(matchPassword);
+      matchPassword;
 
       if (matchUser && matchPassword) {
         localStorage.setItem("currentUser", JSON.stringify(matchUser));

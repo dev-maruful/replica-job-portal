@@ -30,7 +30,7 @@ const JobDetailsPage = () => {
   const relatedJobs = otherJobs?.filter(
     (job) => job.category === currentJob.category
   );
-  console.log(relatedJobs);
+  relatedJobs;
 
   const {
     title,

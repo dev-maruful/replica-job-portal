@@ -52,7 +52,7 @@ const RegisterForm = () => {
     const formData = new FormData();
     formData.append("image", values.image);
 
-    console.log(formData);
+    formData;
 
     // host image to image hosting server
     axios
@@ -76,7 +76,7 @@ const RegisterForm = () => {
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   const handleImageChange = (event, setFieldValue) => {
