@@ -11,6 +11,7 @@ import { toast } from "react-hot-toast";
 import * as Yup from "yup";
 import { EyeIcon } from "@heroicons/react/24/solid";
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
+import Swal from "sweetalert2";
 
 const ProfilePage = () => {
   const { data: currentUser } = GetCurrentUser();
@@ -73,27 +74,41 @@ const ProfilePage = () => {
   };
 
   const handleDelete = (id) => {
-    const jobToDelete = currentUserPostedJobs.find((job) =>
-      job.photo.includes(id)
-    );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const jobToDelete = currentUserPostedJobs.find((job) =>
+          job.photo.includes(id)
+        );
 
-    const newCurrentUserPostedJobs = currentUserPostedJobs.filter(
-      (job) => job.photo !== jobToDelete.photo
-    );
-    currentUserPostedJobs = newCurrentUserPostedJobs;
-    const sellerJobsBeforeDelete = allSellerJobs.filter(
-      (job) => job.email !== currentUser.email
-    );
+        const newCurrentUserPostedJobs = currentUserPostedJobs.filter(
+          (job) => job.photo !== jobToDelete.photo
+        );
+        currentUserPostedJobs = newCurrentUserPostedJobs;
+        const sellerJobsBeforeDelete = allSellerJobs.filter(
+          (job) => job.email !== currentUser.email
+        );
 
-    const newSellerJobs = [...sellerJobsBeforeDelete, ...currentUserPostedJobs];
+        const newSellerJobs = [
+          ...sellerJobsBeforeDelete,
+          ...currentUserPostedJobs,
+        ];
 
-    localStorage.setItem("sellerJobs", JSON.stringify(newSellerJobs));
-    refetch();
-    toast.success("Job deleted successfully");
-    // console.log([...sellerJobsBeforeDelete, ...currentUserPostedJobs]);
+        localStorage.setItem("sellerJobs", JSON.stringify(newSellerJobs));
+        refetch();
+        Swal.fire("Deleted!", "Your job has been deleted.", "success");
+      }
+    });
   };
 
-  console.log(allSellerJobs);
+  console.log(currentUserPostedJobs);
 
   return (
     <div className="md:flex gap-10 mx-3 md:mx-0">
@@ -191,6 +206,7 @@ const ProfilePage = () => {
               category={job.category}
               price={job.basic}
               handleDelete={handleDelete}
+              email={currentUser.email}
             ></UserPostedJobCard>
           ))
         ) : (
