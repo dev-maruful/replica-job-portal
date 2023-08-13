@@ -63,8 +63,6 @@ export default function Home() {
     },
   };
 
-  frontendJobs;
-
   return (
     <main className="space-y-10">
       {/* frontend carousel */}
