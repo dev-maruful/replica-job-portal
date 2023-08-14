@@ -52,7 +52,7 @@ const CheckoutForm = () => {
     <form
       name="paymentForm"
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto"
+      className="max-w-sm md:max-w-md mx-auto"
     >
       <h1 className="text-center mb-10 text-lg font-medium">
         Pay for: {currentJob?.title}

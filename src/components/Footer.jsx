@@ -17,16 +17,11 @@ const Footer = () => {
             <Image src={logo} alt="logo" width={48} className="mb-1"></Image>
             <p className="text-lg font-bold uppercase">Replica</p>
             <p className="text-sm text-gray-400">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-              rutrum lacinia lorem, non facilisis odio facilisis eget.
+              Welcome to Replica, your gateway to professional success. We're
+              dedicated to helping you find your dream job and connecting
+              employers with top talents. Join us in shaping a brighter future,
+              one opportunity at a time.
             </p>
-            {/* Add your social media icons here */}
-            <div className="flex space-x-4 mt-4">
-              <FaFacebookF className="text-white text-xl cursor-pointer hover:text-gray-300"></FaFacebookF>
-              <FaTwitter className="text-white text-xl cursor-pointer hover:text-gray-300"></FaTwitter>
-              <FaInstagram className="text-white text-xl cursor-pointer hover:text-gray-300"></FaInstagram>
-              <FaLinkedinIn className="text-white text-xl cursor-pointer hover:text-gray-300"></FaLinkedinIn>
-            </div>
           </div>
 
           {/* Footer Column 2 - Quick Links */}

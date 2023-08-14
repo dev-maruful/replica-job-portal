@@ -260,7 +260,7 @@ const Navbar = () => {
                       Profile
                     </span>
                   </Link>
-                  {currentUser.role === "Seller" && (
+                  {currentUser.role === "seller" && (
                     <Link href="/postAJob">
                       <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                         Post A Job

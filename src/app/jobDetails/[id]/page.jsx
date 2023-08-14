@@ -148,6 +148,7 @@ const JobDetailsPage = () => {
                   sellerName={job.seller_name}
                   sellerTitle={job.seller_title}
                   pricing={job.basic}
+                  email={item.email}
                 ></CarouselCard>
               ))}
             </Carousel>
@@ -171,6 +172,7 @@ const JobDetailsPage = () => {
                   sellerName={job.seller_name}
                   sellerTitle={job.seller_title}
                   pricing={job.basic}
+                  email={item.email}
                 ></CarouselCard>
               ))}
             </Carousel>

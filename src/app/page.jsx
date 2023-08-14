@@ -80,6 +80,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>
@@ -101,6 +102,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>
@@ -122,6 +124,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>
@@ -143,6 +146,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>
@@ -164,6 +168,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>
@@ -185,6 +190,7 @@ export default function Home() {
                 sellerName={item.seller_name}
                 sellerTitle={item.seller_title}
                 pricing={item.basic}
+                email={item.email}
               ></CarouselCard>
             ))}
           </Carousel>

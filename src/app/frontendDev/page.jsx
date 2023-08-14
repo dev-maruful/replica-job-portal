@@ -24,22 +24,27 @@ const FrontendDevelopmentPage = () => {
   const thisCategoryJobs = allJobs.filter(
     (job) => job.category === "Frontend Development"
   );
-  thisCategoryJobs;
 
   return (
-    <div className="grid grid-cols-3 gap-5">
-      {thisCategoryJobs.map((job, index) => (
-        <CarouselCard
-          key={index}
-          jobPhoto={job.photo}
-          jobTitle={job.title}
-          sellerImage={job.seller_image}
-          sellerName={job.seller_name}
-          sellerTitle={job.seller_title}
-          pricing={job.basic}
-        ></CarouselCard>
-      ))}
-    </div>
+    <>
+      <h1 className="text-center mb-10 text-lg font-semibold">
+        Frontend Development Jobs
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {thisCategoryJobs.map((job, index) => (
+          <CarouselCard
+            key={index}
+            jobPhoto={job.photo}
+            jobTitle={job.title}
+            sellerImage={job.seller_image}
+            sellerName={job.seller_name}
+            sellerTitle={job.seller_title}
+            pricing={job.basic}
+            email={job.email}
+          ></CarouselCard>
+        ))}
+      </div>
+    </>
   );
 };
 

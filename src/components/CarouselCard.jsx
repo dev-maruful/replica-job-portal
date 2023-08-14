@@ -7,6 +7,7 @@ const CarouselCard = ({
   sellerTitle,
   jobTitle,
   pricing,
+  email,
 }) => {
   const generateLink = jobPhoto.split("/");
   const link = generateLink[generateLink.length - 2];
@@ -33,7 +34,7 @@ const CarouselCard = ({
         <div className="space-y-2">
           <div>
             <Link
-              href="/sellers/profile"
+              href={`/sellers/profile/${email}`}
               className="font-medium hover:underline hover:text-[#8c52ff]"
             >
               {sellerName}
