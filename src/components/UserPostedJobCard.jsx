@@ -31,7 +31,7 @@ const UserPostedJobCard = ({
             Starting price:{" "}
             <span className="text-[#8c52ff] text-xl">${price}</span>
           </p>
-          <div className="space-x-3 flex">
+          <div className="space-x-3 flex items-center">
             <Link href={`/profile/${email}/updateJob/${jobId}`}>
               <button className="text-white rounded-md px-3 py-2 font-medium bg-[#8c52ff] hover:bg-[#7A51CB] flex items-center gap-1">
                 <PencilSquareIcon className="w-5 h-5"></PencilSquareIcon>

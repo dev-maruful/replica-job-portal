@@ -31,7 +31,7 @@ const CarouselCard = ({
           />
         </div>
         <div className="space-y-2">
-          <div className="">
+          <div>
             <Link
               href="/sellers/profile"
               className="font-medium hover:underline hover:text-[#8c52ff]"
@@ -40,11 +40,13 @@ const CarouselCard = ({
             </Link>
             <p className="text-sm text-gray-500">{sellerTitle}</p>
           </div>
-          <Link href={`/jobDetails/${link}`}>
-            <h1 className="line-clamp-1 font-medium text-gray-500 hover:underline">
-              {jobTitle}
-            </h1>
-          </Link>
+          <div>
+            <Link href={`/jobDetails/${link}`}>
+              <h1 className="line-clamp-1 font-medium text-gray-500 hover:underline">
+                {jobTitle}
+              </h1>
+            </Link>
+          </div>
           <h1 className="font-semibold">
             Starts from{" "}
             <span className="text-[#8c52ff] text-xl">${pricing}</span>
