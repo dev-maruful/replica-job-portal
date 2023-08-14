@@ -63,7 +63,7 @@ const Navbar = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50">
+    <header className="sticky top-0 z-[100]">
       <nav className="bg-gray-800 p-4 sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between">
           {/* Left side - Logo */}
@@ -110,7 +110,7 @@ const Navbar = () => {
                     <img
                       src={currentUser && currentUser.image}
                       alt="User's Profile"
-                      className="w-10 h-10 rounded-full"
+                      className="w-10 h-10 rounded-full object-cover"
                     />
                   </button>
 
@@ -179,7 +179,7 @@ const Navbar = () => {
           </button>
 
           {isMenuOpen && (
-            <div className="mt-2">
+            <div className={`my-2 fixed top-20 left-0 bg-gray-800 w-full`}>
               <Link href="/">
                 <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                   Home

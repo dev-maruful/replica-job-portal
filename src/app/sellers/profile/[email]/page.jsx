@@ -2,11 +2,13 @@
 
 import CarouselCard from "@/components/CarouselCard";
 import GetAllSellerJobs from "@/utils/getAllSellerJobs";
+import GetAllUsers from "@/utils/getAllUsers";
 import { usePathname } from "next/navigation";
 import { ClockLoader } from "react-spinners";
 
 const SellerProfilePage = () => {
   const { data: allJobs, isLoading } = GetAllSellerJobs();
+  const { data: allUsers } = GetAllUsers();
   const pathname = usePathname();
   const sellerEmail = pathname.split("/")[3];
 
@@ -24,26 +26,23 @@ const SellerProfilePage = () => {
     );
   }
 
+  const currentUser = allUsers?.find((user) => user.email === sellerEmail);
   const thisSellerJobs = allJobs?.filter((job) => job.email === sellerEmail);
-
-  console.log(thisSellerJobs[0].email);
 
   return (
     <div className="space-y-14">
       <div className="flex flex-col justify-center items-center space-y-2">
         <img
-          src={thisSellerJobs[0].seller_image}
+          src={currentUser?.image}
           alt="seller image"
           className="w-72 h-72 rounded-full object-cover"
         />
         <h2 className="text-lg font-semibold">
-          Seller name: {thisSellerJobs[0].seller_name}
+          Seller name: {currentUser?.name}
         </h2>
-        <h3 className="font-medium">
-          Seller title: {thisSellerJobs[0].seller_title}
-        </h3>
+        <h3 className="font-medium">Seller title: {currentUser?.user_title}</h3>
         <p className="font-medium text-gray-500">
-          Seller email: {thisSellerJobs[0].email}
+          Seller email: {currentUser?.email}
         </p>
       </div>
       <div>
