@@ -43,7 +43,7 @@ const Navbar = () => {
     setIsLoggedIn(userLoggedIn);
   }, [currentUser]);
 
-  const navItems = [
+  let navItems = [
     {
       href: "/",
       name: "Home",
@@ -57,6 +57,10 @@ const Navbar = () => {
       name: "Post A Job",
     },
   ];
+
+  if (currentUser?.role === "buyer") {
+    navItems = navItems.filter((item) => item.href !== "/postAJob");
+  }
 
   return (
     <header className="sticky top-0 z-50">
@@ -78,7 +82,6 @@ const Navbar = () => {
           {/* Middle - Categories */}
           {currentUser && (
             <div className="hidden md:flex space-x-4">
-              {/*categories links*/}
               {navItems.map((item) => (
                 <NavLink
                   key={item.href}
@@ -257,11 +260,13 @@ const Navbar = () => {
                       Profile
                     </span>
                   </Link>
-                  <Link href="/postAJob">
-                    <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
-                      Post A Job
-                    </span>
-                  </Link>
+                  {currentUser.role === "Seller" && (
+                    <Link href="/postAJob">
+                      <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
+                        Post A Job
+                      </span>
+                    </Link>
+                  )}
                   <button
                     onClick={handleLogout}
                     className="block w-full text-left py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm"

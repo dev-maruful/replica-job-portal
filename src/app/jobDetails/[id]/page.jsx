@@ -1,18 +1,19 @@
 "use client";
 
 import CarouselCard from "@/components/CarouselCard";
-import RelatedJobsCard from "@/components/RelatedJobsCard";
 import GetAllSellerJobs from "@/utils/getAllSellerJobs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Carousel from "react-multi-carousel";
 import { ClockLoader } from "react-spinners";
 import "react-multi-carousel/lib/styles.css";
+import GetCurrentUser from "@/utils/getCurrentUser";
 
 const JobDetailsPage = () => {
   const router = usePathname();
   const jobId = router.split("/")[2];
   const { data: allJobs, isLoading } = GetAllSellerJobs();
+  const { data: currentUser } = GetCurrentUser();
 
   if (isLoading) {
     return (
@@ -47,6 +48,7 @@ const JobDetailsPage = () => {
     standard,
     premium,
     description,
+    email,
   } = currentJob;
 
   const responsive = {
@@ -119,7 +121,10 @@ const JobDetailsPage = () => {
               <p className="text-gray-500">{description}</p>
             </div>
             <Link href={`/jobDetails/${jobId}/order`}>
-              <button className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5">
+              <button
+                disabled={email === currentUser?.email}
+                className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5"
+              >
                 Order Now
               </button>
             </Link>
