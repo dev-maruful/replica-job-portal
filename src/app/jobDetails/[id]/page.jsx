@@ -73,8 +73,8 @@ const JobDetailsPage = () => {
     <div className="mx-3 md:mx-0 space-y-10">
       <div className="space-y-5 mb-10 md:mb-0">
         <h1 className="text-2xl font-medium">{title}</h1>
-        <div className="flex gap-10">
-          <div className="md:w-2/3 space-y-5">
+        <div className="md:flex gap-10">
+          <div className="md:w-2/3 space-y-5 mb-10 md:mb-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
