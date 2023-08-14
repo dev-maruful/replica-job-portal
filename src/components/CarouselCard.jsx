@@ -28,7 +28,7 @@ const CarouselCard = ({
           <img
             src={sellerImage}
             alt="seller image"
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full object-cover"
           />
         </div>
         <div className="space-y-2">

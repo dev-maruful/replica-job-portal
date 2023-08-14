@@ -85,7 +85,11 @@ const JobDetailsPage = () => {
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div>
-                  <h2 className="text-xl font-semibold">{seller_name}</h2>
+                  <Link href={`/sellers/profile/${email}`}>
+                    <h2 className="text-xl font-semibold hover:underline hover:text-[#8c52ff]">
+                      {seller_name}
+                    </h2>
+                  </Link>
                   <h3 className="text-sm font-medium text-gray-500">
                     {seller_title}
                   </h3>

@@ -95,7 +95,7 @@ export default function Home() {
           onClick={toggleDropdown}
           className="bg-[#8c52ff] text-white px-4 py-2 rounded flex items-center justify-center gap-2 w-32"
         >
-          <span>Sort By</span>
+          <span>Filter By</span>
           {isDropdownOpen ? (
             <ChevronUpIcon className="h-6 w-6"></ChevronUpIcon>
           ) : (
@@ -105,7 +105,7 @@ export default function Home() {
         {isDropdownOpen && (
           <div className="absolute top-11 bg-white border rounded shadow-lg w-60 z-50">
             <div className="">
-              <label className="block w-full px-4 py-2 cursor-pointer">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
                   type="checkbox"
                   value="Frontend Development"
@@ -114,7 +114,7 @@ export default function Home() {
                 />
                 Frontend Development
               </label>
-              <label className="block w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2">
                 <input
                   type="checkbox"
                   value="Backend Development"
@@ -123,7 +123,7 @@ export default function Home() {
                 />
                 Backend Development
               </label>
-              <label className="block w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2">
                 <input
                   type="checkbox"
                   value="Full-stack Development"
@@ -132,7 +132,7 @@ export default function Home() {
                 />
                 Full-stack Development
               </label>
-              <label className="block w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2">
                 <input
                   type="checkbox"
                   value="UI/UX Design"
@@ -141,7 +141,7 @@ export default function Home() {
                 />
                 UI/UX Design
               </label>
-              <label className="block w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2">
                 <input
                   type="checkbox"
                   value="Digital Marketing"
@@ -150,7 +150,7 @@ export default function Home() {
                 />
                 Digital Marketing
               </label>
-              <label className="block w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2">
                 <input
                   type="checkbox"
                   value="Data Entry"
