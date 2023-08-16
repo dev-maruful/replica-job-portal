@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { BsUpload } from "react-icons/bs";
 import Link from "next/link";
 import axios from "axios";
 import addUser from "@/utils/addUser";
@@ -11,11 +10,13 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import GetCurrentUser from "@/utils/getCurrentUser";
 import { FaFileUpload } from "react-icons/fa";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 
 const RegisterForm = () => {
   const router = useRouter();
   const { refetch } = GetCurrentUser();
   const [imagePreview, setImagePreview] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const image_hosting_url = `https://api.imgbb.com/1/upload?key=10d9b016211667099c90a16487153306`;
 
@@ -86,7 +87,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-xl mx-auto mt-8 p-6 bg-white rounded-lg md:shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Register</h1>
       {imagePreview && (
         <div className="flex items-center justify-center mb-2">
@@ -160,13 +161,13 @@ const RegisterForm = () => {
               />
             </div>
 
-            <div className="md:flex gap-5">
+            <div className="md:flex gap-5 relative">
               <div className="mb-4">
                 <label htmlFor="password" className="block mb-2 font-medium">
                   Password
                 </label>
                 <Field
-                  type="password"
+                  type={`${showPassword ? "text" : "password"}`}
                   id="password"
                   name="password"
                   placeholder="create password..."
@@ -177,6 +178,18 @@ const RegisterForm = () => {
                   component="div"
                   className="text-red-500 text-sm"
                 />
+                <EyeIcon
+                  onClick={() => setShowPassword(true)}
+                  className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 md:left-56 ${
+                    showPassword ? "hidden" : ""
+                  }`}
+                ></EyeIcon>
+                <EyeSlashIcon
+                  onClick={() => setShowPassword(false)}
+                  className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 md:left-56 ${
+                    !showPassword ? "hidden" : ""
+                  }`}
+                ></EyeSlashIcon>
               </div>
 
               <div className="mb-4">

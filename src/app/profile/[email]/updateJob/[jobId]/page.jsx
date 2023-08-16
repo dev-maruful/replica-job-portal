@@ -167,7 +167,7 @@ const UpdateJobPage = () => {
                 as="textarea"
                 id="description"
                 name="description"
-                className="w-full p-4 border rounded"
+                className="w-full h-36 p-4 border rounded"
                 placeholder="job description..."
               />
               <ErrorMessage

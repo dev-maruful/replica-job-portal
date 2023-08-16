@@ -126,8 +126,12 @@ const JobDetailsPage = () => {
             </div>
             <Link href={`/jobDetails/${jobId}/order`}>
               <button
-                disabled={email === currentUser?.email}
-                className="bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5"
+                disabled={email === currentUser?.email || !currentUser}
+                className={`bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5 ${
+                  email === currentUser?.email || !currentUser
+                    ? "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
+                    : ""
+                }`}
               >
                 Order Now
               </button>
@@ -138,7 +142,7 @@ const JobDetailsPage = () => {
 
       {otherJobsByThisSeller.length !== 0 && (
         <div>
-          <h1 className="text-xl font-medium border-b-2 border-black mb-5">
+          <h1 className="text-xl font-medium border-b-2 border-gray-300 mb-5">
             Other Jobs By This Seller
           </h1>
           <div>
@@ -161,7 +165,7 @@ const JobDetailsPage = () => {
       )}
 
       <div>
-        <h1 className="text-xl font-medium border-b-2 border-black mb-5">
+        <h1 className="text-xl font-medium border-b-2 border-gray-300 mb-5">
           Related Jobs To This Category
         </h1>
         {relatedJobs.length !== 0 ? (

@@ -9,8 +9,7 @@ import { ClockLoader } from "react-spinners";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { toast } from "react-hot-toast";
 import * as Yup from "yup";
-import { EyeIcon } from "@heroicons/react/24/solid";
-import { EyeSlashIcon } from "@heroicons/react/24/solid";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
 import Swal from "sweetalert2";
 
 const ProfilePage = () => {
@@ -39,13 +38,21 @@ const ProfilePage = () => {
   );
 
   const validationSchema = Yup.object().shape({
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters long")
-      .required("Password cannot be empty"),
+    previous_password: Yup.string().required(
+      "Previous password cannot be empty"
+    ),
+    new_password: Yup.string()
+      .min(6, "New Password must be at least 6 characters long")
+      .required("New password cannot be empty"),
+    confirm_password: Yup.string()
+      .required("Confirm Password cannot be empty")
+      .oneOf([Yup.ref("new_password"), null], "Password must match"),
   });
 
   const initialValues = {
-    password: "",
+    previous_password: "",
+    new_password: "",
+    confirm_password: "",
   };
 
   const handleSubmit = (values, { setSubmitting }) => {
@@ -53,24 +60,35 @@ const ProfilePage = () => {
       setSubmitting(false);
     }, 1000);
 
-    // update current user password on local storage
-    currentUser.password = values.password;
-    currentUser.confirm_password = values.password;
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    if (allUsers) {
+      const matchUser = allUsers.find(
+        (user) => user.email === currentUser.email
+      );
 
-    const findUser = allUsers.find((user) => user.email === currentUser.email);
-    const filterOtherUsers = allUsers.filter(
-      (user) => user.email !== currentUser.email
-    );
-    findUser;
+      if (matchUser.password !== values.previous_password) {
+        return toast.error("Previous password is incorrect");
+      } else {
+        // update current user password on local storage
+        currentUser.password = values.confirm_password;
+        currentUser.confirm_password = values.confirm_password;
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
-    findUser.password = values.password;
-    findUser.confirm_password = values.password;
+        const findUser = allUsers.find(
+          (user) => user.email === currentUser.email
+        );
+        const filterOtherUsers = allUsers.filter(
+          (user) => user.email !== currentUser.email
+        );
 
-    const newAllUsers = [...filterOtherUsers, findUser];
-    localStorage.setItem("users", JSON.stringify(newAllUsers));
-    setShowInputField(false);
-    toast.success("Password updated successfully");
+        findUser.password = values.confirm_password;
+        findUser.confirm_password = values.confirm_password;
+
+        const newAllUsers = [...filterOtherUsers, findUser];
+        localStorage.setItem("users", JSON.stringify(newAllUsers));
+        setShowInputField(false);
+        toast.success("Password updated successfully");
+      }
+    }
   };
 
   const handleDelete = (id) => {
@@ -148,31 +166,65 @@ const ProfilePage = () => {
                 <Form>
                   <div className="space-y-3">
                     <div className="relative">
+                      <h3 className="font-medium mb-2">Previous password</h3>
                       <Field
-                        id="password"
-                        name="password"
+                        id="previous_password"
+                        name="previous_password"
                         type={`${showPassword ? "text" : "password"}`}
-                        placeholder="write new password..."
+                        placeholder="write previous password..."
                         className="border-2 rounded-md px-3 py-2 font-medium w-full focus:outline-none focus:border-[#8c52ff]"
                       />
                       <ErrorMessage
-                        name="password"
+                        name="previous_password"
                         component="div"
                         className="text-red-500 text-sm"
                       />
                       <EyeIcon
                         onClick={() => setShowPassword(true)}
-                        className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-3 right-3 ${
+                        className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 ${
                           showPassword ? "hidden" : ""
                         }`}
                       ></EyeIcon>
                       <EyeSlashIcon
                         onClick={() => setShowPassword(false)}
-                        className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-3 right-3 ${
+                        className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 ${
                           !showPassword ? "hidden" : ""
                         }`}
                       ></EyeSlashIcon>
                     </div>
+
+                    <div>
+                      <h3 className="font-medium mb-2">New password</h3>
+                      <Field
+                        id="new_password"
+                        name="new_password"
+                        type="password"
+                        placeholder="write new password..."
+                        className="border-2 rounded-md px-3 py-2 font-medium w-full focus:outline-none focus:border-[#8c52ff]"
+                      />
+                      <ErrorMessage
+                        name="new_password"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+
+                    <div>
+                      <h3 className="font-medium mb-2">Confirm password</h3>
+                      <Field
+                        id="confirm_password"
+                        name="confirm_password"
+                        type="password"
+                        placeholder="confirm new password..."
+                        className="border-2 rounded-md px-3 py-2 font-medium w-full focus:outline-none focus:border-[#8c52ff]"
+                      />
+                      <ErrorMessage
+                        name="confirm_password"
+                        component="div"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+
                     <div className="flex gap-3">
                       <button
                         type="submit"

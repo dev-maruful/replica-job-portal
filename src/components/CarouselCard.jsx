@@ -13,11 +13,11 @@ const CarouselCard = ({
   const link = generateLink[generateLink.length - 2];
 
   return (
-    <div className="rounded-xl border border-r-2 border-b-2 border-l-0 border-gray-200 mx-3 shadow-lg">
-      <div className="relative">
+    <div className="group rounded-xl border border-r-2 border-b-2 border-l-0 border-gray-200 mx-3 shadow-lg">
+      <div className="relative overflow-hidden rounded-t-xl">
         <Link href={`/jobDetails/${link}`}>
           <img
-            className="w-full rounded-t-xl h-64 object-cover"
+            className="group-hover:scale-105 duration-300 w-full rounded-t-xl h-64 object-cover"
             src={jobPhoto}
             alt="Job photo"
           />

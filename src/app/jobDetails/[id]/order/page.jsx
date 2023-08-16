@@ -55,7 +55,7 @@ const CheckoutForm = () => {
       className="max-w-sm md:max-w-md mx-auto"
     >
       <h1 className="text-center mb-10 text-lg font-medium">
-        Pay for: {currentJob?.title}
+        Pay for: <span className="text-[#8c52ff]">{currentJob?.title}</span>
       </h1>
       <CardElement
         options={{

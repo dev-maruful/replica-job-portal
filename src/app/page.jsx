@@ -90,7 +90,7 @@ export default function Home() {
   return (
     <main className="space-y-10">
       {/* Sort button functionality */}
-      <div className="relative flex flex-col items-end">
+      <div className="relative flex flex-col items-end mr-3 md:mr-0">
         <button
           onClick={toggleDropdown}
           className="bg-[#8c52ff] text-white px-4 py-2 rounded flex items-center justify-center gap-2 w-32"
@@ -104,9 +104,10 @@ export default function Home() {
         </button>
         {isDropdownOpen && (
           <div className="absolute top-11 bg-white border rounded shadow-lg w-60 z-50">
-            <div className="">
+            <div>
               <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="Frontend Development"
                   checked={selectedOptions.includes("Frontend Development")}
@@ -114,8 +115,9 @@ export default function Home() {
                 />
                 Frontend Development
               </label>
-              <label className="flex gap-2 w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="Backend Development"
                   checked={selectedOptions.includes("Backend Development")}
@@ -123,8 +125,9 @@ export default function Home() {
                 />
                 Backend Development
               </label>
-              <label className="flex gap-2 w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="Full-stack Development"
                   checked={selectedOptions.includes("Full-stack Development")}
@@ -132,8 +135,9 @@ export default function Home() {
                 />
                 Full-stack Development
               </label>
-              <label className="flex gap-2 w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="UI/UX Design"
                   checked={selectedOptions.includes("UI/UX Design")}
@@ -141,8 +145,9 @@ export default function Home() {
                 />
                 UI/UX Design
               </label>
-              <label className="flex gap-2 w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="Digital Marketing"
                   checked={selectedOptions.includes("Digital Marketing")}
@@ -150,8 +155,9 @@ export default function Home() {
                 />
                 Digital Marketing
               </label>
-              <label className="flex gap-2 w-full px-4 py-2">
+              <label className="flex gap-2 w-full px-4 py-2 cursor-pointer">
                 <input
+                  className="cursor-pointer"
                   type="checkbox"
                   value="Data Entry"
                   checked={selectedOptions.includes("Data Entry")}

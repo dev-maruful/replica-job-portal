@@ -14,7 +14,6 @@ const Navbar = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: currentUser, refetch } = GetCurrentUser();
 
@@ -24,10 +23,6 @@ const Navbar = () => {
 
   const toggleCategory = () => {
     setIsCategoryOpen(!isCategoryOpen);
-  };
-
-  const toggleProfile = () => {
-    setIsProfileOpen(!isProfileOpen);
   };
 
   const handleLogout = () => {
@@ -53,13 +48,13 @@ const Navbar = () => {
       name: "Profile",
     },
     {
-      href: "/postAJob",
+      href: "/post-a-job",
       name: "Post A Job",
     },
   ];
 
   if (currentUser?.role === "buyer") {
-    navItems = navItems.filter((item) => item.href !== "/postAJob");
+    navItems = navItems.filter((item) => item.href !== "/post-a-job");
   }
 
   return (
@@ -102,11 +97,8 @@ const Navbar = () => {
             {isLoggedIn && currentUser ? (
               <>
                 {/* User's photo */}
-                <div className="hidden md:block md:relative">
-                  <button
-                    className="flex text-white items-center focus:outline-none"
-                    onClick={toggleProfile}
-                  >
+                <div className="hidden group md:block md:relative">
+                  <button className="flex text-white items-center focus:outline-none">
                     <img
                       src={currentUser && currentUser.image}
                       alt="User's Profile"
@@ -115,24 +107,21 @@ const Navbar = () => {
                   </button>
 
                   {/* Dropdown menu */}
-                  {isProfileOpen && (
-                    <div
-                      className={`absolute right-0 mt-2 py-2 bg-white border rounded shadow-lg z-50`}
+                  <div
+                    className={`absolute hidden group-hover:block right-0 py-2 bg-white border rounded shadow-lg z-50 px-3`}
+                  >
+                    <Link href={`/profile/${currentUser?.email}`}>
+                      <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm">
+                        Profile
+                      </span>
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm"
                     >
-                      {/* Add dropdown menu items here */}
-                      <Link href={`/profile/${currentUser?.email}`}>
-                        <span className="block px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm">
-                          Profile
-                        </span>
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200 cursor-pointer text-sm"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  )}
+                      Logout
+                    </button>
+                  </div>
                 </div>
               </>
             ) : (
@@ -179,7 +168,7 @@ const Navbar = () => {
           </button>
 
           {isMenuOpen && (
-            <div className={`my-2 fixed top-20 left-0 bg-gray-800 w-full`}>
+            <div className={`py-3 fixed top-20 left-0 bg-gray-800 w-full`}>
               <Link href="/">
                 <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                   Home
@@ -261,7 +250,7 @@ const Navbar = () => {
                     </span>
                   </Link>
                   {currentUser.role === "seller" && (
-                    <Link href="/postAJob">
+                    <Link href="/post-a-job">
                       <span className="block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer text-sm">
                         Post A Job
                       </span>

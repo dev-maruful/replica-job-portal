@@ -30,8 +30,8 @@ const SellerProfilePage = () => {
   const thisSellerJobs = allJobs?.filter((job) => job.email === sellerEmail);
 
   return (
-    <div className="space-y-14">
-      <div className="flex flex-col justify-center items-center space-y-2">
+    <div className="md:flex gap-5 relative">
+      <div className="space-y-2 flex flex-col items-center md:items-start md:w-1/3 mb-10 md:mb-0 md:sticky md:h-screen top-32 z-10">
         <img
           src={currentUser?.image}
           alt="seller image"
@@ -45,11 +45,9 @@ const SellerProfilePage = () => {
           Seller email: {currentUser?.email}
         </p>
       </div>
-      <div>
-        <h1 className="text-center mb-10 text-lg font-semibold">
-          Jobs By This Seller
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="md:w-2/3">
+        <h1 className="text-lg font-semibold mb-5">Jobs By This Seller</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {thisSellerJobs.map((job, index) => (
             <CarouselCard
               key={index}

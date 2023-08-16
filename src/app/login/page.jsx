@@ -6,9 +6,12 @@ import Link from "next/link";
 import { toast } from "react-hot-toast";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 const LoginForm = () => {
   const { data: allUsers, refetch } = GetAllUsers();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const initialValues = {
@@ -32,8 +35,6 @@ const LoginForm = () => {
         (user) => user.password === values.password
       );
 
-      matchPassword;
-
       if (matchUser && matchPassword) {
         localStorage.setItem("currentUser", JSON.stringify(matchUser));
         localStorage.setItem("isLoggedIn", true);
@@ -49,7 +50,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="max-w-md md:mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <div className="max-w-md md:mx-auto p-6 bg-white rounded-lg md:shadow-lg">
       <div>
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
         <Formik
@@ -77,12 +78,12 @@ const LoginForm = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <label htmlFor="password" className="block mb-2">
                   Password
                 </label>
                 <Field
-                  type="password"
+                  type={`${showPassword ? "text" : "password"}`}
                   id="password"
                   name="password"
                   placeholder="your password..."
@@ -93,6 +94,18 @@ const LoginForm = () => {
                   component="div"
                   className="text-red-500 text-sm"
                 />
+                <EyeIcon
+                  onClick={() => setShowPassword(true)}
+                  className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 ${
+                    showPassword ? "hidden" : ""
+                  }`}
+                ></EyeIcon>
+                <EyeSlashIcon
+                  onClick={() => setShowPassword(false)}
+                  className={`w-5 h-5 text-gray-500 cursor-pointer absolute top-11 right-3 ${
+                    !showPassword ? "hidden" : ""
+                  }`}
+                ></EyeSlashIcon>
               </div>
 
               <button

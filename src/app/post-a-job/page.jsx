@@ -104,7 +104,7 @@ const PostJobForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg md:shadow-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Post A Job</h1>
       <Formik
         initialValues={initialValues}
@@ -213,7 +213,7 @@ const PostJobForm = () => {
                 as="textarea"
                 id="description"
                 name="description"
-                className="w-full p-4 border rounded"
+                className="w-full h-32 p-4 border rounded"
                 placeholder="job description..."
               />
               <ErrorMessage
