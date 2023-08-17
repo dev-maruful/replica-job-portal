@@ -9,19 +9,27 @@ const UserPostedJobCard = ({
   price,
   handleDelete,
   email,
+  hidden,
 }) => {
   const jobId = photo.split("/")[3];
 
   return (
     <div className="border-2 border-gray-100 rounded-lg px-5 md:px-5  md:py-5 flex gap-5 mb-5">
-      <img
-        src={photo}
-        alt="job image"
-        className="hidden md:block md:h-full md:w-40 rounded-l-lg md:rounded-lg object-cover"
-      />
+      <Link href={`/jobDetails/${jobId}`}>
+        <img
+          src={photo}
+          alt="job image"
+          className="hidden md:block md:h-full md:w-40 rounded-l-lg md:rounded-lg object-cover"
+        />
+      </Link>
       <div className="flex flex-col justify-between w-full py-3 md:py-0">
         <div>
-          <p className="md:text-xl font-medium line-clamp-1">{title}</p>
+          <Link
+            href={`/jobDetails/${jobId}`}
+            className="hover:text-[#8c52ff] hover:underline"
+          >
+            <p className="md:text-xl font-medium line-clamp-1">{title}</p>
+          </Link>
           <p className="text-gray-500 font-medium text-sm md:text-base">
             Category: {category}
           </p>
@@ -31,7 +39,7 @@ const UserPostedJobCard = ({
             Starting price:{" "}
             <span className="text-[#8c52ff] text-xl">${price}</span>
           </p>
-          <div className="space-x-3 flex items-center">
+          <div className={`space-x-3 flex items-center ${hidden && "hidden"}`}>
             <Link href={`/profile/${email}/updateJob/${jobId}`}>
               <button className="text-white rounded-md px-3 py-2 font-medium bg-[#8c52ff] hover:bg-[#7A51CB] flex items-center gap-1">
                 <PencilSquareIcon className="w-5 h-5"></PencilSquareIcon>

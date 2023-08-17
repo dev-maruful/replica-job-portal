@@ -1,6 +1,7 @@
 "use client";
 
 import CarouselCard from "@/components/CarouselCard";
+import UserPostedJobCard from "@/components/UserPostedJobCard";
 import GetAllSellerJobs from "@/utils/getAllSellerJobs";
 import GetAllUsers from "@/utils/getAllUsers";
 import { usePathname } from "next/navigation";
@@ -31,34 +32,30 @@ const SellerProfilePage = () => {
 
   return (
     <div className="md:flex gap-5 relative">
-      <div className="space-y-2 flex flex-col items-center md:items-start md:w-1/3 mb-10 md:mb-0 md:sticky md:h-screen top-32 z-10">
+      <div className="space-y-2 flex flex-col items-center md:w-1/3 mb-10 md:mb-0 md:sticky md:h-screen top-32 z-10">
         <img
           src={currentUser?.image}
           alt="seller image"
           className="w-72 h-72 rounded-full object-cover"
         />
-        <h2 className="text-lg font-semibold">
-          Seller name: {currentUser?.name}
-        </h2>
-        <h3 className="font-medium">Seller title: {currentUser?.user_title}</h3>
-        <p className="font-medium text-gray-500">
-          Seller email: {currentUser?.email}
-        </p>
+        <h2 className="text-lg font-semibold">{currentUser?.name}</h2>
+        <h3 className="font-medium">{currentUser?.user_title}</h3>
+        <p className="font-medium text-gray-500">Email: {currentUser?.email}</p>
+        <p className="font-medium text-gray-500">Role: {currentUser?.role}</p>
       </div>
-      <div className="md:w-2/3">
-        <h1 className="text-lg font-semibold mb-5">Jobs By This Seller</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="md:w-2/3 mx-3">
+        <h1 className="text-lg font-semibold mb-3">Jobs By This Seller</h1>
+        <div>
           {thisSellerJobs.map((job, index) => (
-            <CarouselCard
+            <UserPostedJobCard
               key={index}
-              jobPhoto={job.photo}
-              jobTitle={job.title}
-              sellerImage={job.seller_image}
-              sellerName={job.seller_name}
-              sellerTitle={job.seller_title}
-              pricing={job.basic}
+              photo={job.photo}
+              title={job.title}
+              category={job.category}
+              price={job.basic}
               email={job.email}
-            ></CarouselCard>
+              hidden={true}
+            ></UserPostedJobCard>
           ))}
         </div>
       </div>

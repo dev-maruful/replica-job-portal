@@ -42,7 +42,7 @@ const LoginForm = () => {
         refetch();
         router.push("/");
       } else if (!matchPassword) {
-        return toast.error("Password do not match");
+        return toast.error("Authentication failed");
       } else {
         return toast.error("User not valid");
       }

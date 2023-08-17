@@ -142,7 +142,7 @@ const JobDetailsPage = () => {
 
       {otherJobsByThisSeller.length !== 0 && (
         <div>
-          <h1 className="text-xl font-medium border-b-2 border-gray-300 mb-5">
+          <h1 className="text-xl font-medium mb-3">
             Other Jobs By This Seller
           </h1>
           <div>
@@ -165,7 +165,7 @@ const JobDetailsPage = () => {
       )}
 
       <div>
-        <h1 className="text-xl font-medium border-b-2 border-gray-300 mb-5">
+        <h1 className="text-xl font-medium mb-3">
           Related Jobs To This Category
         </h1>
         {relatedJobs.length !== 0 ? (
