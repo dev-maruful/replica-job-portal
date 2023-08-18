@@ -15,7 +15,7 @@ const CarouselCard = ({
   return (
     <div className="group rounded-xl border border-r-2 border-b-2 border-l-0 border-gray-200 mx-3 shadow-lg">
       <div className="relative overflow-hidden rounded-t-xl">
-        <Link href={`/jobDetails/${link}`}>
+        <Link href={`/job-details/${link}`}>
           <img
             className="group-hover:scale-105 duration-300 w-full rounded-t-xl h-64 object-cover"
             src={jobPhoto}
@@ -42,7 +42,7 @@ const CarouselCard = ({
             <p className="text-sm text-gray-500">{sellerTitle}</p>
           </div>
           <div>
-            <Link href={`/jobDetails/${link}`}>
+            <Link href={`/job-details/${link}`}>
               <h1 className="line-clamp-1 font-medium text-gray-500 hover:underline">
                 {jobTitle}
               </h1>

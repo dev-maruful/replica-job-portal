@@ -124,7 +124,7 @@ const JobDetailsPage = () => {
               <p className="text-lg font-medium mb-3">Description:</p>
               <p className="text-gray-500">{description}</p>
             </div>
-            <Link href={`/jobDetails/${jobId}/order`}>
+            <Link href={`/job-details/${jobId}/order`}>
               <button
                 disabled={email === currentUser?.email || !currentUser}
                 className={`bg-[#8c52ff] hover:bg-[#7A51CB] text-white font-bold py-2 px-4 rounded mt-5 ${

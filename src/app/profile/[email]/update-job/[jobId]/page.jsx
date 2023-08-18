@@ -114,8 +114,9 @@ const UpdateJobPage = () => {
               <p className="text-sm mb-1 text-gray-500">
                 write in dollar ($) amount
               </p>
-              <div className="flex gap-3">
+              <div className="md:flex gap-3 space-y-2 md:space-y-0">
                 <div>
+                  <p className="text-sm text-gray-500">Basic pricing</p>
                   <Field
                     type="text"
                     id="basic"
@@ -130,6 +131,7 @@ const UpdateJobPage = () => {
                   />
                 </div>
                 <div>
+                  <p className="text-sm text-gray-500">Standard pricing</p>
                   <Field
                     type="text"
                     id="standard"
@@ -144,6 +146,7 @@ const UpdateJobPage = () => {
                   />
                 </div>
                 <div>
+                  <p className="text-sm text-gray-500">Premium pricing</p>
                   <Field
                     type="text"
                     id="premium"

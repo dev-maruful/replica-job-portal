@@ -3,12 +3,12 @@ import NavItem from "./NavItem";
 const CategoryBar = () => {
   const categoryItems = (
     <>
-      <NavItem href="/frontendDev" name="Frontend Development"></NavItem>
-      <NavItem href="/backendDev" name="Backend Development"></NavItem>
-      <NavItem href="/fullStackDev" name="Full-stack Development"></NavItem>
-      <NavItem href="/uiUxDesign" name="UI/UX Design"></NavItem>
-      <NavItem href="/digitalMarketing" name="Digital Marketing"></NavItem>
-      <NavItem href="/dataEntry" name="Data Entry"></NavItem>
+      <NavItem href="/frontend-dev" name="Frontend Development"></NavItem>
+      <NavItem href="/backend-dev" name="Backend Development"></NavItem>
+      <NavItem href="/fullStack-dev" name="Full-stack Development"></NavItem>
+      <NavItem href="/ui-ux-design" name="UI/UX Design"></NavItem>
+      <NavItem href="/digital-marketing" name="Digital Marketing"></NavItem>
+      <NavItem href="/data-entry" name="Data Entry"></NavItem>
     </>
   );
 

@@ -4,7 +4,7 @@ const NavItem = ({ href, name, classes }) => {
   return (
     <Link
       href={href}
-      className={`text-white text-sm hover:text-gray-300 block ${classes}`}
+      className={`text-black font-semibold text-sm hover:text-gray-300 block ${classes}`}
     >
       {name}
     </Link>

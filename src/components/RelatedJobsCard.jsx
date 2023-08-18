@@ -5,7 +5,7 @@ const RelatedJobsCard = ({ photo, title, category, price }) => {
   const link = generateLink[generateLink.length - 2];
 
   return (
-    <Link href={`/jobDetails/${link}`}>
+    <Link href={`/job-details/${link}`}>
       <div className="w-full border-2 rounded-xl flex gap-3 pr-3 mb-5">
         <img src={photo} alt="job photo" className="w-36 rounded-l-xl" />
         <div className="py-2 flex flex-col justify-between">
